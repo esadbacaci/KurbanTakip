@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewData["Title"] = "KurbanlikEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+    <div class="col-xl">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Kurbanlık Ekle</h5>
+                <small class="text-muted float-end">Kurbanlık Bilgileriniz Giriniz</small>
+            </div>
+            <div class="card-body">
+                <form method="post" asp-action="KurbanlikEkle">
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Ad</label>
+                        <input name="Ad" type="text" class="form-control" id="basic-default-fullname"/>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Kod</label>
+                        <input name="Kod" type="number" class="form-control" id="basic-default-fullname" />
+                    </div>
+                     <div class="mb-3">
+                        <label class="form-label" for="basic-default-fullname">Hisse Adet</label>
+                        <input name="HisseAdet" type="number" class="form-control" id="basic-default-fullname" />
+                    </div>
+                        <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Hisse Fiyatı</label>
+                        <input name="HisseFiyat" type="number" class="form-control" id="basic-default-company" />
+                    </div>
+
+                          <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Kilo</label>
+                        <input name="Kilo" type="number" class="form-control" id="basic-default-company"/>
+                    </div>
+                          <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Yaş</label>
+                        <input name="Yas" type="number" class="form-control" id="basic-default-company"/>
+                    </div>
+                       <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Küpe No</label>
+                        <input name="KupeNo" type="text" class="form-control" id="basic-default-company"/>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label" for="basic-default-company">Cins</label>
+                        <input name="Cins" type="text" class="form-control" id="basic-default-company"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

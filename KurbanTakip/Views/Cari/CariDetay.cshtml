@@ -1,0 +1,39 @@
+﻿@using EntityLayer.Concrete
+@model List<Hissecarikart>
+@{
+    ViewData["Title"] = "CariDetay";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card">
+    <h5 class="card-header">Kurbanlıklar</h5>
+    <div class="card-body">
+        <div class="table-responsive text-nowrap">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Kurbanlık ID</th>
+                        <th>Ad</th>
+                        <th>Küpe No</th>
+                        <th>Kilo</th>
+                        <th>Yaş</th>
+                        <th>Cins</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@item.CariKartId</td>
+                        <td>@item.StokId</td>
+                        <td>@item.HisseTutar</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

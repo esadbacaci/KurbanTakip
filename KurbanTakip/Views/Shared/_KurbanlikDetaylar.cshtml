@@ -1,0 +1,32 @@
+﻿@using EntityLayer.Concrete
+@model List<Stok>
+
+<table class="table table-sm">
+    <thead>
+        <tr>
+            <th>Ad</th>
+            <th>Hisse Adet</th>
+            <th>Hisse Fiyat</th>
+            <th>Kilo</th>
+            <th>Yaş</th>
+            <th>Küpe No</th>
+            <th>Cins</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Ad</td>
+                <td>@item.HisseAdet</td>
+                <td>@item.HisseFiyat.ToString("0.##") TL</td>
+                <td>@item.Kilo.ToString("0.##") KG</td>
+                <td>@item.Yas</td>
+                <td>@item.KupeNo</td>
+                <td>@item.Cins</td>
+            </tr>
+            <input type="hidden" name="HisseTutar" value="@item.HisseFiyat" />
+
+        }
+    </tbody>
+</table>
