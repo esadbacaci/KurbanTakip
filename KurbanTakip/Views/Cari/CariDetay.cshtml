@@ -12,12 +12,11 @@
             <table class="table table-bordered">
                 <thead>
                     <tr>
+                        <th>Cari ID</th>
                         <th>Kurbanlık ID</th>
-                        <th>Ad</th>
-                        <th>Küpe No</th>
-                        <th>Kilo</th>
-                        <th>Yaş</th>
-                        <th>Cins</th>
+                        <th>Hisse Tutar</th>
+                        <th>Tarih</th>
+                        <th>Vekalet Durumu</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +25,9 @@
                     <tr>
                         <td>@item.CariKartId</td>
                         <td>@item.StokId</td>
-                        <td>@item.HisseTutar</td>
+                        <td>@item.HisseTutar.ToString("0.##") TL</td>
+                        <td>@item.Tarih</td>
+                        <td>@item.VekaletAlindiMi</td>
                     </tr>
                     }
                 </tbody>

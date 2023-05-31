@@ -1,0 +1,51 @@
+﻿@{
+    ViewData["Title"] = "CariGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="row">
+	<div class="col-xl">
+		<div class="card mb-4">
+			<div class="card-header d-flex justify-content-between align-items-center">
+				<h5 class="mb-0">Cari Güncelle</h5>
+				<small class="text-muted float-end">Cari Detayları</small>
+			</div>
+			<div class="card-body">
+				<form method="post" asp-controller="Cari" asp-action="CariGuncelle">
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Ad Soyad</label>
+						<input value="@Model.AdSoyad" name="AdSoyad" type="text" class="form-control" id="AdSoyad" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-phone">Telefon No</label>
+						<input value="@Model.Telefon" type="number" id="Telefon" class="form-control phone-mask" name="Telefon" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Referans</label>
+						<input value="@Model.Referans" name="Referans" type="text" class="form-control" id="basic-default-fullname" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Ülke</label>
+						<input value="@Model.Ulke"  name="Ulke" type="text" class="form-control" id="basic-default-fullname" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-company">Şehir</label>
+						<input value="@Model.Il" name="Il" type="text" class="form-control" id="basic-default-company" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-company">İlçe</label>
+						<input value="@Model.Ilce" name="Ilce" type="text" class="form-control" id="basic-default-company" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-message">Açıklama</label>
+						<input value="@Model.Aciklama" id="basic-default-message" class="form-control" placeholder="" name="Aciklama" />
+					</div>
+					<input type="hidden" name="Tarih" value="@DateTime.Now.ToShortDateString()" />
+					<button type="submit" class="btn btn-primary">Güncelle</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

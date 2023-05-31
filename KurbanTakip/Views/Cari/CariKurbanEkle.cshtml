@@ -4,7 +4,6 @@
 	ViewData["Title"] = "CariKurbanEkle";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 <div class="row">
 	<div class="col-xl">
 		<div class="card mb-4">
@@ -38,6 +37,7 @@
 									<td>@item.Ilce</td>
 									<td>@item.Aciklama</td>
 									<input type="hidden" name="CariKartId" value="@item.Id" />
+									<input type="hidden" name="HisseCariKartId" value="@item.Id" />
 								</tr>
 							}
 						</tbody>
@@ -62,12 +62,11 @@
 								<label class="form-check-label" for="flexSwitchCheckDefault">Vekalet Alıncak Mı</label>
 							</div>
 						</div>
-
 						<div class="col-md-6 mb-3">
 							<div id="kurbanlikDetaylar"></div>
 						</div>
 					</div>
-					<button type="submit" class="btn btn-primary">Kaydet</button>
+					<button type="submit" class="btn btn-primary carikaydet">Kaydet</button>
 				</form>
 			</div>
 		</div>

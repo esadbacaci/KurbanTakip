@@ -37,7 +37,16 @@ namespace BusinessLayer.Concrete
 		{
 			return _hissecarikarts.GetByID(id);
 		}
+		public List<Hissecarikart> GetHisseCarikartById(int Id)
+		{
+            return _hissecarikarts.GetListAll(x => x.CariKartId == Id);
 
+        }
+		public List<Hissecarikart> GetHisseCarikartByStokId(int StokId)
+		{
+			return _hissecarikarts.GetListAll(x => x.StokId == StokId);
+
+		}
 		public void TUpdate(Hissecarikart t)
 		{
 			_hissecarikarts.Update(t);

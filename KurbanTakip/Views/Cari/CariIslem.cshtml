@@ -1,226 +1,234 @@
-﻿
+﻿@using EntityLayer.Concrete
+@model CariStokModel
 @{
-    ViewData["Title"] = "CariIslem";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "CariIslem";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="col-lg-12 col-md-6">
-    <div class="mt-3">
-        <!-- Button trigger modal -->
-        <button type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#tahsilatYap">
-            Tahsilat Yap
-        </button>
-        <button type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#odemeYap">
-            Ödeme Yap
-        </button>
-          <button type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#borclandir">
-            Borçlandır
-        </button>
-        <button type="button"
-                class="btn btn-primary"
-                data-bs-toggle="modal"
-                data-bs-target="#alacaklandir">
-            Alacaklandır
-        </button>
-    </div>
+	<div class="mt-3">
+		<!-- Button trigger modal -->
+		<button type="button"
+				class="btn btn-primary"
+				data-bs-toggle="modal"
+				data-bs-target="#tahsilatYap">
+			Tahsilat Yap
+		</button>
+		<button type="button"
+				class="btn btn-primary"
+				data-bs-toggle="modal"
+				data-bs-target="#odemeYap">
+			Ödeme Yap
+		</button>
+		<button type="button"
+				class="btn btn-primary"
+				data-bs-toggle="modal"
+				data-bs-target="#borclandir">
+			Borçlandır
+		</button>
+		<button type="button"
+				class="btn btn-primary"
+				data-bs-toggle="modal"
+				data-bs-target="#alacaklandir">
+			Alacaklandır
+		</button>
+	</div>
 
 </div>
 <div class="card mt-3">
-    <h5 class="card-header">Cari İşlem Tablosu</h5>
+	<h5 class="card-header">Cari İşlem Tablosu</h5>
 
-    <div class="card-body">
-        <div class="table-responsive text-nowrap">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Cari ID</th>
-                        <th>Tarih</th>
-                        <th>Borç</th>
-                        <th>Alacak</th>
-                        <th>Tutar</th>
-                        <th>Açıklama</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                     <td>1</td>
-                     <td>2</td>
-                     <td>12.05.2023</td>
-                     <td><span class="badge bg-label-success me-1">2300</span></td>
-                        <td><span class="badge bg-label-danger me-1">0</span></td>
-                     <td>2300</td>
-                     <td>Aciklama test</td>
-                    </tr>
-              
-                </tbody>
-            </table>
-        </div>
-    </div>
+	<div class="card-body">
+		<div class="table-responsive text-nowrap">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Cari ID</th>
+						<th>Tarih</th>
+						<th>Borç</th>
+						<th>Alacak</th>
+						<th>Açıklama</th>
+						<th>Hisse CariKart ID</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.Cariislems)
+					{
+						<tr>
+							<td>@item.Id</td>
+							<td>@item.CariKartId</td>
+							<td>@item.Tarih</td>
+							<td><span class="badge bg-label-success me-1">@item.Borc.ToString("0.##")</span></td>
+							<td><span class="badge bg-label-danger me-1">@item.Alacak.ToString("0.##")</span></td>
+							<td>@item.Aciklama</td>
+							<td>@item.HisseCariKartId</td>
+
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
 <!-- Modal -->
 <div class="modal fade" id="tahsilatYap" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1"> Tahsilat Yap</h5>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="İptal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col mb-3">
-                        <label for="nameBasic" class="form-label">Ücret</label>
-                        <input type="text" id="nameBasic" class="form-control" placeholder="Ücret Giriniz" />
-                    </div>
-                </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel1"> Tahsilat Yap</h5>
+				<button type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="İptal"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col mb-3">
+						<label for="nameBasic" class="form-label">Ücret</label>
+						<input type="text" id="nameBasic" class="form-control" placeholder="" />
+					</div>
+				</div>
 
-                <div class="row g-2 mt-3">
-                    <div class="col mb-0">
-                        <label for="sacrifice" class="form-label">Kurbanlık Seç</label>
-                        <select id="sacrifice" class="form-select">
-                            <option selected>Seçiniz</option>
-                            <option value="sacrifice1">Kurbanlık1</option>
-                            <option value="sacrifice2">Kurbanlık2</option>
-                            <option value="sacrifice3">Kurbanlık3</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    İptal
-                </button>
-                <button type="button" class="btn btn-primary">Onayla</button>
-            </div>
-        </div>
-    </div>
+				<div class="row g-2 mt-3">
+					<div class="col mb-0">
+						<label for="defaultSelect" class="form-label"><strong>Kurbanlık Seç</strong></label>
+						<select name="StokId" id="kurbanlik" class="form-select">
+							<option value="" selected disabled>Kurbanlık Seç</option>
+							@foreach (var stok in Model.Stoks) // stoklar, veritabanından çekilen stok verilerini içeren bir liste olarak düşünülmüştür
+							{
+								<option value="@stok.Id">@stok.KupeNo</option>
+							}
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+					İptal
+				</button>
+				<button type="button" id="btnOnayla" class="btn btn-primary">Onayla</button>
+			</div>
+		</div>
+	</div>
 </div>
+
 <div class="modal fade" id="odemeYap" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Ödeme Yap</h5>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="İptal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col mb-3">
-                        <label for="nameBasic" class="form-label">Ücret</label>
-                        <input type="text" id="nameBasic" class="form-control" placeholder="Ücret Giriniz" />
-                    </div>
-                </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel1">Ödeme Yap</h5>
+				<button type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="İptal"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col mb-3">
+						<label for="nameBasic" class="form-label">Ücret</label>
+						<input type="text" id="nameBasic" class="form-control" placeholder="Ücret Giriniz" />
+					</div>
+				</div>
 
-                <div class="row g-2 mt-3">
-                    <div class="col mb-0">
-                        <label for="sacrifice" class="form-label">Kurbanlık Seç</label>
-                        <select id="sacrifice" class="form-select">
-                            <option selected>Seçiniz</option>
-                            <option value="sacrifice1">Kurbanlık1</option>
-                            <option value="sacrifice2">Kurbanlık2</option>
-                            <option value="sacrifice3">Kurbanlık3</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    İptal
-                </button>
-                <button type="button" class="btn btn-primary">Onayla</button>
-            </div>
-        </div>
-    </div>
+				<div class="row g-2 mt-3">
+					<div class="col mb-0">
+						<label for="sacrifice" class="form-label">Kurbanlık Seç</label>
+						<select id="sacrifice" class="form-select">
+							<option selected>Seçiniz</option>
+							<option value="sacrifice1">Kurbanlık1</option>
+							<option value="sacrifice2">Kurbanlık2</option>
+							<option value="sacrifice3">Kurbanlık3</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+					İptal
+				</button>
+				<button type="button" class="btn btn-primary">Onayla</button>
+			</div>
+		</div>
+	</div>
 </div>
+
 <div class="modal fade" id="borclandir" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1"> Borçlandır</h5>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="İptal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col mb-3">
-                        <label for="nameBasic" class="form-label">Ücret</label>
-                        <input type="text" id="nameBasic" class="form-control" placeholder="Ücret Giriniz" />
-                    </div>
-                </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel1"> Borçlandır</h5>
+				<button type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="İptal"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col mb-3">
+						<label for="nameBasic" class="form-label">Ücret</label>
+						<input type="text" id="nameBasic" class="form-control" placeholder="Ücret Giriniz" />
+					</div>
+				</div>
 
-                <div class="row g-2 mt-3">
-                    <div class="col mb-0">
-                        <label for="sacrifice" class="form-label">Kurbanlık Seç</label>
-                        <select id="sacrifice" class="form-select">
-                            <option selected>Seçiniz</option>
-                            <option value="sacrifice1">Kurbanlık1</option>
-                            <option value="sacrifice2">Kurbanlık2</option>
-                            <option value="sacrifice3">Kurbanlık3</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    İptal
-                </button>
-                <button type="button" class="btn btn-primary">Onayla</button>
-            </div>
-        </div>
-    </div>
+				<div class="row g-2 mt-3">
+					<div class="col mb-0">
+						<label for="sacrifice" class="form-label">Kurbanlık Seç</label>
+						<select id="sacrifice" class="form-select">
+							<option selected>Seçiniz</option>
+							<option value="sacrifice1">Kurbanlık1</option>
+							<option value="sacrifice2">Kurbanlık2</option>
+							<option value="sacrifice3">Kurbanlık3</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+					İptal
+				</button>
+				<button type="button" class="btn btn-primary">Onayla</button>
+			</div>
+		</div>
+	</div>
 </div>
-<div class="modal fade" id="alacaklandir" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel1">Alacaklandır</h5>
-                <button type="button"
-                        class="btn-close"
-                        data-bs-dismiss="modal"
-                        aria-label="İptal"></button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col mb-3">
-                        <label for="nameBasic" class="form-label">Ücret</label>
-                        <input type="text" id="nameBasic" class="form-control" placeholder="Ücret Giriniz" />
-                    </div>
-                </div>
 
-                <div class="row g-2 mt-3">
-                    <div class="col mb-0">
-                        <label for="sacrifice" class="form-label">Kurbanlık Seç</label>
-                        <select id="sacrifice" class="form-select">
-                            <option selected>Seçiniz</option>
-                            <option value="sacrifice1">Kurbanlık1</option>
-                            <option value="sacrifice2">Kurbanlık2</option>
-                            <option value="sacrifice3">Kurbanlık3</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                    İptal
-                </button>
-                <button type="button" class="btn btn-primary">Onayla</button>
-            </div>
-        </div>
-    </div>
+<div class="modal fade" id="alacaklandir" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel1">Alacaklandır</h5>
+				<button type="button"
+						class="btn-close"
+						data-bs-dismiss="modal"
+						aria-label="İptal"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col mb-3">
+						<label for="nameBasic" class="form-label">Ücret</label>
+						<input type="text" id="nameBasic" class="form-control" placeholder="Ücret Giriniz" />
+					</div>
+				</div>
+
+				<div class="row g-2 mt-3">
+					<div class="col mb-0">
+						<label for="sacrifice" class="form-label">Kurbanlık Seç</label>
+						<select id="sacrifice" class="form-select">
+							<option selected>Seçiniz</option>
+							<option value="sacrifice1">Kurbanlık1</option>
+							<option value="sacrifice2">Kurbanlık2</option>
+							<option value="sacrifice3">Kurbanlık3</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+					İptal
+				</button>
+				<button type="button" class="btn btn-primary">Onayla</button>
+			</div>
+		</div>
+	</div>
 </div>

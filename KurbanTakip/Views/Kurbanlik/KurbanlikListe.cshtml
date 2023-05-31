@@ -1,5 +1,5 @@
 ﻿@using EntityLayer.Concrete
-@model List<Stok>
+@model CariStokModel
 @{
 	ViewData["Title"] = "KurbanlikListe";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -20,38 +20,35 @@
 					<th>Kilo</th>
 					<th>Yaş</th>
 					<th>Cins</th>
-					<th>Durum</th>
 				</tr>
 			</thead>
-			<tbody class="table-border-bottom-0">
-				@foreach (var item in Model)
-				{
-					<tr>
-						<td>@item.Id</td>
-						<td><strong>@item.Ad</strong></td>
-						<td>@item.HisseAdet</td>
-						<td>@item.HisseFiyat.ToString("0.##") TL</td>
-						<td>
-							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-								<li data-bs-toggle="tooltip"
-								data-popup="tooltip-custom"
-								data-bs-placement="top"
-								class="avatar avatar-xs pull-up"
-								title="Lilian Fuller">
-									<img src="~/kurban/assets/img/avatars/5.png" alt="Avatar" class="rounded-circle" />
-								</li>
-							</ul>
-						</td>
-						<td>@item.KupeNo</td>
+            <tbody class="table-border-bottom-0">
+                @foreach (var item in Model.Stoks)
+                {
+                    <tr>
+                        <td>@item.Id</td>
+                        <td><strong>@item.Ad</strong></td>
+                        <td>@Model.Hissecarikarts.Where(c=>c.StokId == item.Id).ToList().Count()/ @item.HisseAdet</td>
+                        <td>@item.HisseFiyat.ToString("0.##") TL</td>
+                        <td>
+                            <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                @foreach (var cari in Model.Hissecarikarts.Where(c => c.StokId == item.Id))
+                                {
+                                    <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="@Model.Carikarts.Where(c=>c.Id == cari.CariKartId).FirstOrDefault().AdSoyad">
+                                        <img src="~/kurban/assets/img/avatars/avatar.png" alt="Avatar" class="rounded-circle" />
+                                    </li>
+                                }
+                            </ul>
+                        </td>
+                        <td>@item.KupeNo</td>
+                        <td>@item.Kilo.ToString("0.##") KG</td>
+                        <td>@item.Yas</td>
+                        <td>@item.Cins</td>
+                        <td><a href="/Kurbanlik/KurbanlikDetay/@item.Id" class="btn btn-dark" style="color:white">Hissedarlar</a></td>
+                    </tr>
+                }
+            </tbody>
 
-						<td>@item.Kilo.ToString("0.##") KG</td>
-						<td>@item.Yas</td>
-						<td>@item.Cins</td>
-						<td><span class="badge bg-label-primary me-1">Beklemede</span></td>
-						<td><a href="/Kurbanlik/KurbanlikDetay" class="btn btn-dark" style="color:white">Hissedarlar</a></td>
-					</tr>
-				}
-			</tbody>
 		</table>
 	</div>
 </div>

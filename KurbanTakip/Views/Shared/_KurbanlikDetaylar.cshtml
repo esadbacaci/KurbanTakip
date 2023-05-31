@@ -1,5 +1,5 @@
 ﻿@using EntityLayer.Concrete
-@model List<Stok>
+@model CariStokModel
 
 <table class="table table-sm">
     <thead>
@@ -14,11 +14,11 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
+        @foreach (var item in Model.Stoks)
         {
             <tr>
                 <td>@item.Ad</td>
-                <td>@item.HisseAdet</td>
+                <td class="hisseAdet">@Model.Hissecarikarts.Where(c=>c.StokId == item.Id).ToList().Count() / @item.HisseAdet</td>
                 <td>@item.HisseFiyat.ToString("0.##") TL</td>
                 <td>@item.Kilo.ToString("0.##") KG</td>
                 <td>@item.Yas</td>
@@ -26,7 +26,24 @@
                 <td>@item.Cins</td>
             </tr>
             <input type="hidden" name="HisseTutar" value="@item.HisseFiyat" />
-
+            <input type="hidden" name="Borc" value="@item.HisseFiyat" />
         }
     </tbody>
 </table>
+<script>
+    $('.carikaydet').click(function (event) {
+        var hisseAdet = parseInt($(".hisseAdet").text().split("/")[0]);
+        var maksimumHisseAdet = parseInt($(".hisseAdet").text().split("/")[1]);
+
+        if (hisseAdet >= maksimumHisseAdet) {
+            event.preventDefault(); // Formun submit işlemini engelle
+            Swal.fire({
+                icon: 'error',
+                title: 'Hata',
+                text: 'Bu kurban için daha fazla hisse alınamaz',
+                confirmButtonText: 'Tamam'
+            });
+            return false;
+        }
+    });
+</script>

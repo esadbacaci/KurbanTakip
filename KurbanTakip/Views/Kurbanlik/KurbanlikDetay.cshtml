@@ -1,47 +1,43 @@
-﻿
+﻿@using EntityLayer.Concrete
+@model CariStokModel
 @{
-    ViewData["Title"] = "KurbanlikDetay";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "KurbanlikDetay";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="card">
-    <h5 class="card-header">Hissedarlar</h5>
-    <div class="card-body">
-        <div class="table-responsive text-nowrap">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Hisse No</th>
-                        <th>Ad Soyad</th>
-                        <th>Telefon</th>
-                        <th>Düşen Hisse</th>
-                        <th>Hisse Fiyat</th>
-                        <th>Ödenen</th>
-                        <th>Kalan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>2</td>
-                        <td><strong>Hakan Arslan</strong></td>
-                        <td>0536 654 6543</td>
-                        <td>45 KG</td>
-                        <td><span class="badge bg-label-primary me-1">3000 TL</span></td>
-                        <td><span class="badge bg-label-success me-1">2000 TL</span></td>
-                        <td><span class="badge bg-label-danger me-1">1000 TL</span></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><strong>Fatih Arslan</strong></td>
-                        <td>0536 654 6543</td>
-                        <td>45 KG</td>
-                        <td><span class="badge bg-label-primary me-1">3000 TL</span></td>
-                        <td><span class="badge bg-label-success me-1">1500 TL</span></td>
-                        <td><span class="badge bg-label-danger me-1">1500 TL</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+	<h5 class="card-header">Hissedarlar</h5>
+	<div class="card-body">
+		<div class="table-responsive text-nowrap">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Hisse No</th>
+						<th>Ad Soyad</th>
+						<th>Telefon</th>
+						<th>Düşen Hisse</th>
+						<th>Borç</th>
+						<th>Ödenen</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model.Hissecarikarts)
+					{
+						var cariKart = Model.Carikarts.FirstOrDefault(c => c.Id == item.CariKartId);
+						var stok = Model.Stoks.FirstOrDefault(s => s.Id == item.StokId);
+						var cariislem = Model.Cariislems.FirstOrDefault(x => x.HisseCariKartId == item.Id);
+						<tr>
+							<td>@item.Id</td>
+							<td>@(cariKart != null ? cariKart.AdSoyad : "")</td>
+							<td>@(cariKart != null ? cariKart.Telefon : "")</td>
+							<td>@(stok != null ? stok.Kilo.ToString("0.##") : "") KG</td>
+							<td><span class="badge bg-label-success me-1">@(cariislem != null ? cariislem.Borc.ToString("0.##") :"" ) ₺</span></td>
+							<td><span class="badge bg-label-danger me-1">@(cariislem != null ? cariislem.Alacak.ToString("0.##"): "") ₺</span></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 

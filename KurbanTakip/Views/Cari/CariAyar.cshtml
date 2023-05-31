@@ -15,8 +15,10 @@
 					<th>Ad Soyad</th>
 					<th>Telefon</th>
 					<th>Referans</th>
-					<th>Tarih</th>
 					<th>Açıklama</th>
+					<th>Ülke</th>
+					<th>İl</th>
+					<th>İlçe</th>
 				</tr>
 			</thead>
 			<tbody class="table-border-bottom-0">
@@ -27,12 +29,13 @@
 						<td><strong>@item.AdSoyad</strong></td>
 						<td>@item.Telefon</td>
 						<td>@item.Referans</td>
-						<td> @item.Tarih.ToShortDateString()</td>
 						<td>@item.Aciklama</td>
+						<td>@item.Ulke</td>
+						<td>@item.Il</td>
+						<td>@item.Ilce</td>
 
-						<td><a href="/Cari/CariKurbanEkle/@item.Id" class="btn btn-dark">Hisse Ekle</a></td>
-						<td><a href="/Cari/CariDetay/@item.Id" class="btn btn-dark">Kurbanlıklar</a></td>
-						<td><a href="/Cari/CariIslem/@item.Id" class="btn btn-info">İşlemler</a></td>
+						<td><a href="/Cari/CariSil/@item.Id" class="btn btn-danger">Sil</a></td>
+						<td><a href="/Cari/CariGuncelle/@item.Id" class="btn btn-warning">Düzenle</a></td>
 					</tr>
 				}
 			</tbody>

@@ -3,6 +3,7 @@ using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using KurbanTakip.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace KurbanTakip.Controllers
@@ -10,12 +11,13 @@ namespace KurbanTakip.Controllers
     public class CariController : Controller
     {
         CarikartManager cm = new CarikartManager(new EfCarikartRepository());
-		StokManager sm = new StokManager(new EfStokRepository());
-		HissecarikartManager hcm = new HissecarikartManager(new EfHissecarikartRepository());
+        StokManager sm = new StokManager(new EfStokRepository());
+        HissecarikartManager hcm = new HissecarikartManager(new EfHissecarikartRepository());
+        CariIslemManager cim = new CariIslemManager(new EfCariIslemRepository());
 
-		public IActionResult CariListe()
+        public IActionResult CariListe()
         {
-            var values= cm.GetList();
+            var values = cm.GetList();
             return View(values);
         }
         [HttpGet]
@@ -27,41 +29,102 @@ namespace KurbanTakip.Controllers
         public IActionResult CariEkle(Carikart p)
         {
             cm.TAdd(p);
-            return RedirectToAction("CariListe","Cari");
+            return RedirectToAction("CariListe", "Cari");
         }
         [HttpGet]
+        public IActionResult CariAyar()
+        {
+            var values = cm.GetList();
+            return View(values);
+        }
+        public IActionResult CariSil(int id)
+        {
+            var values = cm.TGetById(id);
+            cm.TDelete(values);
+            return RedirectToAction("CariAyar", "Cari");
+        }
+        [HttpGet]
+        public IActionResult CariGuncelle(int id)
+        {
+            var carivalue = cm.TGetById(id);
+            return View(carivalue);
+        }
+        [HttpPost]
+        public IActionResult CariGuncelle(Carikart p, int Id)
+        {
+            var cariToUpdate = cm.TGetById(Id);
+
+            if (cariToUpdate != null)
+            {
+				cariToUpdate.AdSoyad = p.AdSoyad;
+				cariToUpdate.Telefon = p.Telefon;
+				cariToUpdate.Referans = p.Referans;
+                cariToUpdate.Ulke = p.Ulke;
+                cariToUpdate.Il = p.Il;
+                cariToUpdate.Ulke = p.Ilce;
+                cariToUpdate.Aciklama = p.Aciklama;
+                cariToUpdate.Tarih = DateTime.Parse(DateTime.Now.ToShortDateString());
+
+                cm.TUpdate(cariToUpdate);
+            }
+            return RedirectToAction("CariAyar", "Cari");
+	}
+		[HttpGet]
         public IActionResult CariKurbanEkle(int id)
         {
-			var values = cm.GetCariById(id);
-			var stoks = sm.GetList();
-			var viewModel = new CariStokModel
-			{
-				Carikarts = values,
-				Stoks = stoks
-			};
+            var values = cm.GetCariById(id);
+            var stoks = sm.GetList();
+            var viewModel = new CariStokModel
+            {
+                Carikarts = values,
+                Stoks = stoks
+            };
+            
+            return View(viewModel);
+        }
 
-			return View(viewModel);
-		}
         [HttpPost]
-        public IActionResult CariKurbanEkle(Hissecarikart p)
+        public IActionResult CariKurbanEkle(Hissecarikart p, Cariislem t)
         {
-			int selectedStokId = p.StokId; // Seçilen StokId değerini alın
-			p.StokId = selectedStokId;
-			p.Tarih = DateTime.Now; // Geçerli tarihi atayın
-			p.VekaletAlindiMi = Request.Form["VekaletAlindiMi"] == "on";
+            int selectedStokId = p.StokId; // Seçilen StokId değerini alın
+            p.StokId = selectedStokId;
+            p.Tarih = DateTime.Now;
+            p.VekaletAlindiMi = Request.Form["VekaletAlindiMi"] == "on";
+			p.Id = 0;
+  
+			t.Tarih = DateTime.Now;
+			t.Alacak = 0;
+			t.Aciklama = "Başarılı";
+            t.Id= 0;
+
 			hcm.TAdd(p);
-            return RedirectToAction("CariListe","Cari");
-		}
-        [HttpGet]
+			t.HisseCariKartId = p.Id;
+			cim.TAdd(t);
+			return RedirectToAction("CariListe", "Cari");
+        }
+
+		[HttpGet]
         public IActionResult CariDetay(int id)
         {
-            var values =hcm.TGetById(id);
+            var values = hcm.GetHisseCarikartById(id);
             return View(values);
         }
         [HttpGet]
-        public IActionResult CariIslem()
-        {
-            return View();
+        public IActionResult CariIslem(int id)
+		{
+			var stoks = sm.GetList();
+			var caris = hcm.GetHisseCarikartByStokId(id);
+			var values = cm.GetList();
+			var cislem = cim.GetHisseCariIslemById(id);
+			var viewModel = new CariStokModel
+			{
+				Carikarts = values,
+				Stoks = stoks,
+				Hissecarikarts = caris,
+				Cariislems = cislem
+			};
+
+			return View(viewModel);
         }
     }
 }
