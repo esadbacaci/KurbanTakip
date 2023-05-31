@@ -70,88 +70,119 @@
 		</div>
 	</div>
 </div>
+<form asp-controller="Cari" asp-action="CariIslemTahsilat" method="post">
+	<!-- Modal -->
+	<div class="modal fade" id="tahsilatYap" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel1"> Tahsilat Yap</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="İptal"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col mb-3">
+							<label for="nameBasic" class="form-label">Ücret</label>
+							<input type="number" id="nameBasic" name="Alacak" class="form-control" placeholder="Ücret Giriniz" required />
+						</div>
+						<div class="col mb-3">
+							<label for="nameBasic2" class="form-label">Açıklama</label>
+							<input type="text" id="nameBasic2" name="Aciklama" class="form-control" placeholder="Açıklama Giriniz" />
+						</div>
+					</div>
+					<div class="row g-2 mt-3">
+						<div class="col mb-0">
+							<label for="defaultSelect" class="form-label"><strong>Kurbanlık Seç</strong></label>
+							<select name="HisseCariKartId" id="kurbanlik" class="form-select" required>
+								<option value="" selected disabled>Kurbanlık Seç</option>
+								@foreach (var hissecarikart in Model.Hissecarikarts.Where(h => h.CariKartId == Model.Cariislem.CariKartId))
+								{
+									var stok = Model.Stoks.FirstOrDefault(s => s.Id == hissecarikart.StokId);
+									if (stok != null)
+									{
+										<option value="@hissecarikart.Id">@stok.KupeNo</option>
+									}
+								}
+							</select>
+							<br />
+							<div class="mb-3 row">
+								<label for="nameBasic" class="form-label">Tarih</label>
+								<div class="col mb-3">
+									<input value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" name="Tarih" class="form-control" type="datetime-local" />
+								</div>
 
-<!-- Modal -->
-<div class="modal fade" id="tahsilatYap" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel1"> Tahsilat Yap</h5>
-				<button type="button"
-						class="btn-close"
-						data-bs-dismiss="modal"
-						aria-label="İptal"></button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col mb-3">
-						<label for="nameBasic" class="form-label">Ücret</label>
-						<input type="text" id="nameBasic" class="form-control" placeholder="" />
+							</div>
+							<input type="hidden" name="CariKartId" value="@Model.Cariislem.CariKartId" />
+							@*<input type="hidden" name="HisseCariKartId" value="@Model.Cariislem.CariKartId" />*@
+						</div>
+
 					</div>
 				</div>
-
-				<div class="row g-2 mt-3">
-					<div class="col mb-0">
-						<label for="defaultSelect" class="form-label"><strong>Kurbanlık Seç</strong></label>
-						<select name="StokId" id="kurbanlik" class="form-select">
-							<option value="" selected disabled>Kurbanlık Seç</option>
-							@foreach (var stok in Model.Stoks) // stoklar, veritabanından çekilen stok verilerini içeren bir liste olarak düşünülmüştür
-							{
-								<option value="@stok.Id">@stok.KupeNo</option>
-							}
-						</select>
-					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+					<button type="submit" class="btn btn-primary">Onayla</button>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-					İptal
-				</button>
-				<button type="button" id="btnOnayla" class="btn btn-primary">Onayla</button>
 			</div>
 		</div>
 	</div>
-</div>
+</form>
 
-<div class="modal fade" id="odemeYap" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel1">Ödeme Yap</h5>
-				<button type="button"
-						class="btn-close"
-						data-bs-dismiss="modal"
-						aria-label="İptal"></button>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col mb-3">
-						<label for="nameBasic" class="form-label">Ücret</label>
-						<input type="text" id="nameBasic" class="form-control" placeholder="Ücret Giriniz" />
+<form asp-controller="Cari" asp-action="CariIslemOdeme" method="post">
+	<!-- Modal -->
+	<div class="modal fade" id="odemeYap" tabindex="-1" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel1"> Ödeme Yap</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="İptal"></button>
+				</div>
+				<div class="modal-body">
+					<div class="row">
+						<div class="col mb-3">
+							<label for="nameBasic" class="form-label">Ücret</label>
+							<input type="number" id="nameBasic" name="Borc" class="form-control" placeholder="Ücret Giriniz" required />
+						</div>
+						<div class="col mb-3">
+							<label for="nameBasic2" class="form-label">Açıklama</label>
+							<input type="text" id="nameBasic2" name="Aciklama" class="form-control" placeholder="Açıklama Giriniz" />
+						</div>
+					</div>
+					<div class="row g-2 mt-3">
+						<div class="col mb-0">
+							<label for="defaultSelect" class="form-label"><strong>Kurbanlık Seç</strong></label>
+							<select name="HisseCariKartId" id="kurbanlik" class="form-select" required>
+								<option value="" selected disabled>Kurbanlık Seç</option>
+								@foreach (var hissecarikart in Model.Hissecarikarts.Where(h => h.CariKartId == Model.Cariislem.CariKartId))
+								{
+									var stok = Model.Stoks.FirstOrDefault(s => s.Id == hissecarikart.StokId);
+									if (stok != null)
+									{
+										<option value="@hissecarikart.Id">@stok.KupeNo</option>
+									}
+								}
+							</select>
+							<br />
+							<div class="mb-3 row">
+								<label for="nameBasic" class="form-label">Tarih</label>
+								<div class="col mb-3">
+									<input value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" name="Tarih" class="form-control" type="datetime-local" />
+								</div>
+
+							</div>
+							<input type="hidden" name="CariKartId" value="@Model.Cariislem.CariKartId" />
+							@*<input type="hidden" name="HisseCariKartId" value="@Model.Cariislem.CariKartId" />*@
+						</div>
+
 					</div>
 				</div>
-
-				<div class="row g-2 mt-3">
-					<div class="col mb-0">
-						<label for="sacrifice" class="form-label">Kurbanlık Seç</label>
-						<select id="sacrifice" class="form-select">
-							<option selected>Seçiniz</option>
-							<option value="sacrifice1">Kurbanlık1</option>
-							<option value="sacrifice2">Kurbanlık2</option>
-							<option value="sacrifice3">Kurbanlık3</option>
-						</select>
-					</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+					<button type="submit" class="btn btn-primary">Onayla</button>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-					İptal
-				</button>
-				<button type="button" class="btn btn-primary">Onayla</button>
 			</div>
 		</div>
 	</div>
-</div>
+</form>
 
 <div class="modal fade" id="borclandir" tabindex="-1" aria-hidden="true">
 	<div class="modal-dialog" role="document">

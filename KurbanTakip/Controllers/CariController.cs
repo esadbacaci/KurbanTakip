@@ -14,6 +14,7 @@ namespace KurbanTakip.Controllers
         StokManager sm = new StokManager(new EfStokRepository());
         HissecarikartManager hcm = new HissecarikartManager(new EfHissecarikartRepository());
         CariIslemManager cim = new CariIslemManager(new EfCariIslemRepository());
+        KasaManager km=new KasaManager(new EfKasaRepository()); 
 
         public IActionResult CariListe()
         {
@@ -110,21 +111,47 @@ namespace KurbanTakip.Controllers
             return View(values);
         }
         [HttpGet]
-        public IActionResult CariIslem(int id)
+        public IActionResult CariIslem(int id,Hissecarikart h,Cariislem c)
 		{
 			var stoks = sm.GetList();
-			var caris = hcm.GetHisseCarikartByStokId(id);
+            var caris = hcm.GetList();
 			var values = cm.GetList();
 			var cislem = cim.GetHisseCariIslemById(id);
+            Cariislem tekCarti = cislem[0];
 			var viewModel = new CariStokModel
 			{
 				Carikarts = values,
 				Stoks = stoks,
 				Hissecarikarts = caris,
-				Cariislems = cislem
+				Cariislems = cislem,
+                Cariislem = tekCarti
 			};
-
+           
 			return View(viewModel);
+        }
+        [HttpPost]
+		public IActionResult CariIslemTahsilat(Cariislem c,Kasa k)
+		{
+			c.Id = 0;
+			cim.TAdd(c);
+
+            k.GirisMi = true;
+            k.CariIslemId = c.Id;
+            k.Tutar = c.Alacak;
+            km.TAdd(k);
+			return RedirectToAction("CariListe", "Cari");
+		}
+        [HttpPost]
+        public IActionResult CariIslemOdeme(Cariislem c, Kasa k)
+        {
+            c.Id = 0;
+            cim.TAdd(c);
+
+            k.GirisMi = false;
+            k.CariIslemId = c.Id;
+            k.Tutar = c.Borc;
+            km.TAdd(k);
+            return RedirectToAction("CariListe", "Cari");
         }
     }
 }

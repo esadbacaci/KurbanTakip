@@ -1,5 +1,7 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using EntityLayer.Concrete;
+using KurbanTakip.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KurbanTakip.Controllers
@@ -10,10 +12,12 @@ namespace KurbanTakip.Controllers
 		StokManager sm = new StokManager(new EfStokRepository());
 		HissecarikartManager hcm = new HissecarikartManager(new EfHissecarikartRepository());
 		CariIslemManager cim = new CariIslemManager(new EfCariIslemRepository());
+        KasaManager km = new KasaManager(new EfKasaRepository());
 
-		public IActionResult Index()
+        public IActionResult Index()
         {
-            return View();
+            var values=km.GetList();
+            return View(values);
         }
     }
 }

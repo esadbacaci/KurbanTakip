@@ -9,6 +9,7 @@ namespace KurbanTakip.Models
 		public IEnumerable<Stok> Stoks { get; set; }
 		public IEnumerable<Hissecarikart> Hissecarikarts { get; set; }
 		public IEnumerable<Cariislem> Cariislems{ get; set; }
+		public Cariislem Cariislem{ get; set; }
 		public IEnumerable<Kasa> Kasas{ get; set; }
 
         //public Stok Stok { get; set; }
