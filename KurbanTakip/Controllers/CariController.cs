@@ -2,12 +2,15 @@
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using KurbanTakip.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore.Query.Internal;
 
 namespace KurbanTakip.Controllers
 {
+    [Authorize]
+
     public class CariController : Controller
     {
         CarikartManager cm = new CarikartManager(new EfCarikartRepository());
@@ -153,5 +156,54 @@ namespace KurbanTakip.Controllers
             km.TAdd(k);
             return RedirectToAction("CariListe", "Cari");
         }
-    }
+
+		[HttpPost]
+		public IActionResult CariIslemBorclandir(Cariislem c)
+		{
+			c.Id = 0;
+			cim.TAdd(c);
+			return RedirectToAction("CariListe", "Cari");
+		}
+        [HttpPost]
+		public IActionResult CariIslemAlacaklandir(Cariislem c)
+		{
+			c.Id = 0;
+			cim.TAdd(c);
+			return RedirectToAction("CariListe", "Cari");
+		}
+		public IActionResult CariDetaySil(int id)
+		{
+			var values = hcm.TGetById(id);
+			hcm.TDelete(values);
+			return RedirectToAction("CariListe", "Cari");
+		}
+		[HttpGet]
+		public IActionResult CariIslemGuncelle(int id)
+		{
+			var carivalue = cim.TGetById(id);
+			return View(carivalue);
+		}
+		[HttpPost]
+		public IActionResult CariIslemGuncelle(Cariislem p, int Id)
+		{
+			var cariIslemToUpdate = cim.TGetById(Id);
+
+			if (cariIslemToUpdate != null)
+			{
+				cariIslemToUpdate.Aciklama = p.Aciklama;
+				cariIslemToUpdate.Borc = p.Borc;
+				cariIslemToUpdate.Alacak= p.Alacak;
+				cariIslemToUpdate.Tarih = DateTime.Parse(DateTime.Now.ToShortDateString());
+
+				cim.TUpdate(cariIslemToUpdate);
+			}
+			return RedirectToAction("CariListe", "Cari");
+		}
+		public IActionResult CariIslemSil(int id)
+		{
+			var values = cim.TGetById(id);
+			cim.TDelete(values);
+			return RedirectToAction("CariListe", "Cari");
+		}
+	}
 }

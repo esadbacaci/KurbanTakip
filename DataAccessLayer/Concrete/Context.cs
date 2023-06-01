@@ -15,7 +15,7 @@ namespace DataAccessLayer.Concrete
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseMySql("server=localhost;database=kurbantakipoto;user=root;password=esad2074",
+                optionsBuilder.UseMySql("server=178.18.200.167;database=kurbantakipoto;user=kurbantakipoto;password=W9hT#Z$XzuE",
                 new MySqlServerVersion(new Version(8, 0, 23)));
             }
         }
@@ -24,6 +24,7 @@ namespace DataAccessLayer.Concrete
         public virtual DbSet<Hissecarikart> Hissecarikarts { get; set; } = null!;
         public virtual DbSet<Kasa> Kasas { get; set; } = null!;
         public virtual DbSet<Stok> Stoks { get; set; } = null!;
+        public virtual DbSet<Admin> Admins { get; set; } = null!;
 
     }
 }

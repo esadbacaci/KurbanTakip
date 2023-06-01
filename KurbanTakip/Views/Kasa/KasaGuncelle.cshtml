@@ -1,0 +1,30 @@
+﻿@{
+    ViewData["Title"] = "KasaGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-xl">
+		<div class="card mb-4">
+			<div class="card-header d-flex justify-content-between align-items-center">
+				<h5 class="mb-0">Cari Güncelle</h5>
+				<small class="text-muted float-end">Cari Detayları</small>
+			</div>
+			<div class="card-body">
+				<form method="post" asp-controller="Kasa" asp-action="KasaGuncelle">
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Tutar</label>
+						<input value="@Model.Tutar.ToString("0.##")" name="Tutar" type="text" class="form-control" id="Tutar"required  />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default">Açıklama</label>
+						<input value="@Model.Aciklama" type="text" id="Aciklama" class="form-control" name="Aciklama" required />
+					</div>
+					<input type="hidden" name="Tarih" value="@DateTime.Now.ToShortDateString()" />
+					<button type="submit" class="btn btn-primary">Güncelle</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+

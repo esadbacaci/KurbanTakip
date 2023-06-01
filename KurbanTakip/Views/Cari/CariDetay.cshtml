@@ -1,39 +1,62 @@
 ﻿@using EntityLayer.Concrete
 @model List<Hissecarikart>
+@using DataAccessLayer.Concrete
+
 @{
-    ViewData["Title"] = "CariDetay";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	using var dbContext = new Context();
+
+	ViewData["Title"] = "CariDetay";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="card">
-    <h5 class="card-header">Kurbanlıklar</h5>
-    <div class="card-body">
-        <div class="table-responsive text-nowrap">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>Cari ID</th>
-                        <th>Kurbanlık ID</th>
-                        <th>Hisse Tutar</th>
-                        <th>Tarih</th>
-                        <th>Vekalet Durumu</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                    <tr>
-                        <td>@item.CariKartId</td>
-                        <td>@item.StokId</td>
-                        <td>@item.HisseTutar.ToString("0.##") TL</td>
-                        <td>@item.Tarih</td>
-                        <td>@item.VekaletAlindiMi</td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
+	<h5 class="card-header"> Kurbanlıklar</h5>
+	<div class="card-body">
+		<div class="table-responsive text-nowrap">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Cari ID</th>
+						<th>Kod / Küpe No</th>
+						<th>Hisse Tutar</th>
+						<th>Tarih</th>
+						<th>Vekalet Durumu</th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						var stok = dbContext.Stoks.FirstOrDefault(s => s.Id == item.StokId);
+						var stokKodu = stok != null ? stok.Kod : "Bilinmeyen Stok";
+						var kupeNo = stok != null ? stok.KupeNo : "Bilinmeyen Küpe No";
+
+						var carikart = dbContext.Carikarts.FirstOrDefault(c => c.Id == item.CariKartId);
+						var cariAdi = carikart != null ? carikart.AdSoyad : "Bilinmeyen Cari Adı";
+						ViewBag.cariad=cariAdi;
+						<tr>
+							<td>@item.CariKartId</td>
+							<td>@stokKodu / @kupeNo</td>
+
+							<td>@item.HisseTutar.ToString("0.##") TL</td>
+							<td>@item.Tarih.ToString("dd/MM/yyyy HH:mm")</td>
+							<td>
+								@if (item.VekaletAlindiMi == true)
+								{
+									<text>Vekalet Alındı</text>
+								}
+								else
+								{
+									<text>Vekalet Yok</text>
+								}
+							</td>
+							<td><a href="/Cari/CariDetaySil/@item.Id" class="btn btn-danger">Sil</a></td>
+						</tr>
+					}
+				</tbody>
+				@ViewBag.cariad
+			</table>
+		</div>
+	</div>
 </div>
 
 

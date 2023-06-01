@@ -16,3 +16,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+.navbarmenu_responsive
+{
+    display:none;
+}
+@media (max-width: 1200px) {
+    .navbarmenu_responsive
+    {
+        display:block;
+    }
+}

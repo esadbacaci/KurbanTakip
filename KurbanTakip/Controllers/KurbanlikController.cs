@@ -3,16 +3,19 @@ using DataAccessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using KurbanTakip.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace KurbanTakip.Controllers
 {
+    [Authorize]
     public class KurbanlikController : Controller
     {
         StokManager sm = new StokManager(new EfStokRepository());
         CarikartManager cm = new CarikartManager(new EfCarikartRepository());
         HissecarikartManager hcm = new HissecarikartManager(new EfHissecarikartRepository());
         CariIslemManager cim=new CariIslemManager(new EfCariIslemRepository());
+        
         Context c=new Context();
         public IActionResult KurbanlikListe()
         {
@@ -47,13 +50,46 @@ namespace KurbanTakip.Controllers
         {
             return View();
         }
+
         [HttpPost]
         public IActionResult KurbanlikEkle(Stok p)
         {
             sm.TAdd(p);
             return RedirectToAction("KurbanlikListe","Kurbanlik");
         }
-        [HttpGet]
+		public IActionResult KurbanlikSil(int id)
+		{
+			var values = sm.TGetById(id);
+			sm.TDelete(values);
+			return RedirectToAction("KurbanlikListe", "Kurbanlik");
+		}
+		[HttpGet]
+		public IActionResult KurbanlikGuncelle(int id)
+		{
+			var carivalue = sm.TGetById(id);
+			return View(carivalue);
+		}
+		[HttpPost]
+		public IActionResult KurbanlikGuncelle(Stok p, int Id)
+		{
+			var stokToUpdate = sm.TGetById(Id);
+
+			if (stokToUpdate != null)
+			{
+				stokToUpdate.Ad = p.Ad;
+				stokToUpdate.Kod = p.Kod;
+				stokToUpdate.HisseAdet = p.HisseAdet;
+				stokToUpdate.HisseFiyat = p.HisseFiyat;
+				stokToUpdate.Kilo = p.Kilo;
+				stokToUpdate.Yas = p.Yas;
+				stokToUpdate.KupeNo = p.KupeNo;
+				stokToUpdate.Cins=p.Cins;
+
+				sm.TUpdate(stokToUpdate);
+			}
+			return RedirectToAction("KurbanlikListe", "Kurbanlik");
+		}
+		[HttpGet]
         public IActionResult KurbanlikDetay(int id)
         {
             var stoks = sm.GetList();

@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewData["Title"] = "KurbanlikGuncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+	<div class="col-xl">
+		<div class="card mb-4">
+			<div class="card-header d-flex justify-content-between align-items-center">
+				<h5 class="mb-0">Kurbanlık Güncelle</h5>
+				<small class="text-muted float-end">Kurbanlık Detayları</small>
+			</div>
+			<div class="card-body">
+				<form method="post" asp-controller="Kurbanlik" asp-action="KurbanlikGuncelle">
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Ad</label>
+						<input value="@Model.Ad" name="Ad" type="text" class="form-control" id="Ad" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-phone"> Kod</label>
+						<input value="@Model.Kod" type="tel" id="Kod" class="form-control " name="Kod" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Hisse Adet</label>
+						<input value="@Model.HisseAdet" name="HisseAdet" type="number" class="form-control" id="basic-default-fullname" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Hisse Fiyat</label>
+						<input value="@Model.HisseFiyat" name="HisseFiyat" type="text" class="form-control" id="basic-default-fullname" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-fullname">Kilo</label>
+						<input value="@Model.Kilo" name="Kilo" type="text" class="form-control" id="basic-default-fullname" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-company">Yaş</label>
+						<input value="@Model.Yas" name="Yas" type="number" class="form-control" id="basic-default-company" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-company">Küpe No</label>
+						<input value="@Model.KupeNo" name="KupeNo" type="text" class="form-control" id="basic-default-company" required />
+					</div>
+					<div class="mb-3">
+						<label class="form-label" for="basic-default-message">Cins</label>
+						<input value="@Model.Cins" id="basic-default-message" class="form-control" name="Cins" type="text" />
+					</div>
+					<input type="hidden" name="Tarih" value="@DateTime.Now.ToShortDateString()" />
+					<button type="submit" class="btn btn-primary">Güncelle</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+

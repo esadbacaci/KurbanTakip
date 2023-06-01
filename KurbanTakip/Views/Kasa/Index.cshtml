@@ -1,83 +1,97 @@
 ﻿@using EntityLayer.Concrete
 @model List<Kasa>
 @{
-    ViewData["Title"] = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="col-4 mb-4">
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex flex-column">
-                <div class="card-title">
-                    <h5 class="text-nowrap mb-2">Toplam Kazanç</h5>
-                </div>
-                <div class="mt-auto">
-                    <h3 class="mb-0 text-success">152.565 TL</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-4 mb-4">
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex flex-column">
-                <div class="card-title">
-                    <h5 class="text-nowrap mb-2">Toplam Alacak</h5>
-                </div>
-                <div class="mt-auto">
-                    <h3 class="mb-0 text-danger">84.535 TL</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="col-4 mb-4">
-    <div class="card">
-        <div class="card-body">
-            <div class="d-flex flex-column">
-                <div class="card-title">
-                    <h5 class="text-nowrap mb-2">Toplam Borç</h5>
-                </div>
-                <div class="mt-auto">
-                    <h3 class="mb-0 text-warning">18.523 TL</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
+<div class="col-4 mb-4">
+	<div class="card">
+		<div class="card-body">
+			<div class="d-flex flex-column">
+				<div class="card-title">
+					<h5 class="text-nowrap mb-2">Giriş</h5>
+				</div>
+				<div class="mt-auto">
+					<h3 class="mb-0 text-danger">0 TL</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-4 mb-4">
+	<div class="card">
+		<div class="card-body">
+			<div class="d-flex flex-column">
+				<div class="card-title">
+					<h5 class="text-nowrap mb-2">Çıkış</h5>
+				</div>
+				<div class="mt-auto">
+					<h3 class="mb-0 text-warning">0 TL</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="col-4 mb-4">
+	<div class="card">
+		<div class="card-body">
+			<div class="d-flex flex-column">
+				<div class="card-title">
+					<h5 class="text-nowrap mb-2">Toplam Bakiye</h5>
+				</div>
+				<div class="mt-auto">
+					<h3 class="mb-0 text-success">0 TL</h3>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div class="card">
-    <h5 class="card-header">Bordered Table</h5>
-    <div class="card-body">
-        <div class="table-responsive text-nowrap">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Cari İşlem ID</th>
-                        <th>Tarih</th>
-                        <th>Tutar</th>
-                        <th>Açıklama</th>
-                        <th>Giriş Mi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
-                    <tr>
-                        <td>@item.Id</td>
-                        <td>@item.CariIslemId</td>
-                        <td>@item.Tarih.ToShortDateString()</td>
-                        <td><span class="badge bg-label-primary me-1">@item.Tutar TL</span></td>
-                        <td>@item.Aciklama</td>
-                        <td>@item.GirisMi</td>
-                    </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    </div>
+	<h5 class="card-header">Kasa</h5>
+	<div class="card-body">
+		<div class="table-responsive text-nowrap">
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Sıra No</th>
+						<th>Tarih</th>
+						<th>Tutar</th>
+						<th>Açıklama</th>
+						<th>İşlem Türü</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model)
+					{
+						<tr>
+							<td>@item.Id</td>
+							<td>@item.Tarih.ToShortDateString()</td>
+							<td class="text-end"><span class="badge bg-label-primary me-1">@string.Format("{0:0.##} TL", item.Tutar)</span></td>
+							<td>@item.Aciklama</td>
+							<td>
+								@if (item.GirisMi.HasValue)
+								{
+									if (item.GirisMi.Value)
+									{
+										<text>Giriş</text>
+									}
+									else
+									{
+										<text>Çıkış</text>
+									}
+								}
+							</td>
+							<td><a href="/Kasa/KasaGuncelle/@item.Id" class="btn btn-warning">Düzenle</a></td>
+							<td><a href="/Kasa/KasaSil/@item.Id" class="btn btn-danger">Sil</a></td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+	</div>
 </div>
 
