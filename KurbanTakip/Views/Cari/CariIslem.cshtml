@@ -65,11 +65,11 @@
 						<tr>
 							<td>@item.Id</td>
 							<td>@item.Tarih.ToString("dd/MM/yyyy HH:mm")</td>
-							<td class="text-end"><span class="badge bg-label-success me-1">@item.Borc.ToString("0.##") TL</span></td>
-							<td class="text-end"><span class="badge bg-label-danger me-1">@item.Alacak.ToString("0.##") TL</span></td>
+							<td class="text-end"><span class="badge bg-label-success me-1">@item.Borc.ToString("0.##") ₺</span></td>
+							<td class="text-end"><span class="badge bg-label-danger me-1">@item.Alacak.ToString("0.##") ₺</span></td>
 							<td>@item.Aciklama</td>
 							<td><a href="/Cari/CariIslemGuncelle/@item.Id" class="btn btn-warning">Düzenle</a></td>
-							<td><a href="/Cari/CariIslemSil/@item.Id" class="btn btn-danger">Sil</a></td>
+							<td><a href="#" class="btn btn-danger" onclick="confirmDelete('@item.Id')">Sil</a></td>
 
 
 						</tr>
@@ -96,11 +96,11 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column">
-					<div class="card-title">
+					<div class="card-Title">
 						<h5 class="text-nowrap mb-2">Toplam Borç</h5>
 					</div>
 					<div class="mt-auto">
-						<h3 class="mb-0 text-warning">@string.Format("{0:0.##}",@ViewBag.borct) TL</h3>
+						<h3 class="mb-0 text-warning">@string.Format("{0:0.##}",@ViewBag.borct) ₺</h3>
 					</div>
 				</div>
 			</div>
@@ -111,11 +111,11 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column">
-					<div class="card-title">
+					<div class="card-Title">
 						<h5 class="text-nowrap mb-2">Toplam Alacak</h5>
 					</div>
 					<div class="mt-auto">
-						<h3 class="mb-0 text-danger">@string.Format("{0:0.##}",@ViewBag.alacakt) TL</h3>
+						<h3 class="mb-0 text-danger">@string.Format("{0:0.##}",@ViewBag.alacakt) ₺</h3>
 					</div>
 				</div>
 			</div>
@@ -125,11 +125,11 @@
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column">
-					<div class="card-title">
+					<div class="card-Title">
 						<h5 class="text-nowrap mb-2">Toplam Bakiye</h5>
 					</div>
 					<div class="mt-auto">
-						<h3 class="mb-0 text-success">@string.Format("{0:0.##}",@ViewBag.bakiye) TL</h3>
+						<h3 class="mb-0 text-success">@string.Format("{0:0.##}",@ViewBag.bakiye) ₺</h3>
 					</div>
 				</div>
 			</div>
@@ -145,7 +145,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel1"> Tahsilat Yap</h5>
+					<h5 class="modal-Title" id="exampleModalLabel1"> Tahsilat Yap</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="İptal"></button>
 				</div>
 				<div class="modal-body">
@@ -187,7 +187,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+					<button type="button" class="btn btn-outLine-secondary" data-bs-dismiss="modal">İptal</button>
 					<button type="submit" class="btn btn-primary">Onayla</button>
 				</div>
 			</div>
@@ -201,7 +201,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel1"> Ödeme Yap</h5>
+					<h5 class="modal-Title" id="exampleModalLabel1"> Ödeme Yap</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="İptal"></button>
 				</div>
 				<div class="modal-body">
@@ -244,7 +244,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+					<button type="button" class="btn btn-outLine-secondary" data-bs-dismiss="modal">İptal</button>
 					<button type="submit" class="btn btn-primary">Onayla</button>
 				</div>
 			</div>
@@ -258,7 +258,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel1">Borçlandır</h5>
+					<h5 class="modal-Title" id="exampleModalLabel1">Borçlandır</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="İptal"></button>
 				</div>
 				<div class="modal-body">
@@ -301,7 +301,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+					<button type="button" class="btn btn-outLine-secondary" data-bs-dismiss="modal">İptal</button>
 					<button type="submit" class="btn btn-primary">Onayla</button>
 				</div>
 			</div>
@@ -315,7 +315,7 @@
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel1">Alacaklandır</h5>
+					<h5 class="modal-Title" id="exampleModalLabel1">Alacaklandır</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="İptal"></button>
 				</div>
 				<div class="modal-body">
@@ -358,7 +358,7 @@
 					</div>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</button>
+					<button type="button" class="btn btn-outLine-secondary" data-bs-dismiss="modal">İptal</button>
 					<button type="submit" class="btn btn-primary">Onayla</button>
 				</div>
 			</div>
@@ -369,4 +369,20 @@
 	$(document).ready(function () {
 		$(".first").insertBefore(".second");
 	});
+</script>
+<script>
+	function confirmDelete(itemId) {
+		swal({
+			title: "Emin misiniz?",
+			text: "Bu işlemi geri alamazsınız!",
+			icon: "warning",
+			buttons: ["İptal", "Sil"],
+			dangerMode: true,
+		})
+			.then((confirmed) => {
+				if (confirmed) {
+					window.location.href = "/Cari/CariIslemSil/" + itemId;
+				}
+			});
+	}
 </script>

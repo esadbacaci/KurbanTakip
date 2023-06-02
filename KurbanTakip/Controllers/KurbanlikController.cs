@@ -105,8 +105,14 @@ namespace KurbanTakip.Controllers
             };
           
             return View(viewModel);
-           
         }
+        public IActionResult HissedarSil(int id)
+        {
+			var values = hcm.TGetById(id);
+			hcm.TDelete(values);
+			return RedirectToAction("KurbanlikListe", "Kurbanlik");
+
+		}
 
     }
 }

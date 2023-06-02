@@ -1,4 +1,4 @@
-const TRANSITION_EVENTS = ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd']
+﻿const TRANSITION_EVENTS = ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd']
 // const TRANSITION_PROPERTIES = ['transition', 'MozTransition', 'webkitTransition', 'WebkitTransition', 'OTransition']
 
 class Menu {
@@ -460,11 +460,11 @@ class Menu {
   }
 
   get _innerPosition() {
-    return parseInt(this._inner.style[this._rtl ? 'marginRight' : 'marginLeft'] || '0px', 10)
+    return parseInt(this._inner.style[this._rtL ? 'marginRight' : 'marginLeft'] || '0px', 10)
   }
 
   set _innerPosition(value) {
-    this._inner.style[this._rtl ? 'marginRight' : 'marginLeft'] = `${value}px`
+    this._inner.style[this._rtL ? 'marginRight' : 'marginLeft'] = `${value}px`
     return value
   }
 

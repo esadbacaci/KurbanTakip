@@ -1,4 +1,4 @@
-// Buttons
+﻿// Buttons
 // *******************************************************************************
 
 .btn {
@@ -33,7 +33,7 @@ label.btn {
 @each $color, $value in $theme-colors {
   @if $color != primary {
     @include template-button-variant('.btn-#{$color}', $value);
-    @include template-button-outline-variant('.btn-outline-#{$color}', $value);
+    @include template-button-outLine-variant('.btn-outLine-#{$color}', $value);
   }
 }
 
@@ -107,5 +107,5 @@ label.btn {
 
 // Button focus
 button:focus {
-  outline: none;
+  outLine: none;
 }

@@ -468,7 +468,7 @@ $form-switch-color: $gray-300 !default;
 $form-switch-width: 2em !default;
 $form-switch-padding-start: $form-switch-width + 0.5em !default;
 
-$form-switch-checked-bg-position-rtl: left center !default; //(C)
+$form-switch-checked-bg-position-rtL: left center !default; //(C)
 // scss-docs-end form-switch-variables
 
 //input-group-variables
@@ -486,7 +486,7 @@ $form-select-disabled-bg: $input-disabled-bg !default;
 $form-select-bg-size: 17px 12px !default;
 $form-select-indicator-color: $gray-600 !default;
 $form-select-indicator: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>") !default;
-$form-select-indicator-rtl: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>") !default; // (C)
+$form-select-indicator-rtL: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path fill='none' stroke='#{$form-select-indicator-color}' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/></svg>") !default; // (C)
 
 $form-select-focus-box-shadow: $input-btn-focus-box-shadow !default;
 
@@ -515,7 +515,7 @@ $form-range-thumb-disabled-bg: rgba-to-hex($gray-200, $rgba-to-hex-bg) !default;
 // scss-docs-start form-floating-variables
 $form-floating-label-opacity: 0.75 !default;
 $form-floating-transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out !default;
-$form-floating-label-transform-rtl: scale(0.85) translateY(-0.5rem) translateX(-0.15rem) !default; // (C)
+$form-floating-label-transform-rtL: scale(0.85) translateY(-0.5rem) translateX(-0.15rem) !default; // (C)
 // scss-docs-end form-floating-variables
 
 // Form validation
@@ -639,8 +639,8 @@ $pagination-disabled-bg: rgba-to-hex(rgba($black, 0.04), $rgba-to-hex-bg) !defau
 
 $card-spacer-y: $spacer * 1.5 !default;
 $card-spacer-x: $spacer * 1.5 !default;
-$card-title-font-size: $h5-font-size !default; // (C)
-$card-title-spacer-y: $spacer * 0.875 !default;
+$card-Title-font-size: $h5-font-size !default; // (C)
+$card-Title-spacer-y: $spacer * 0.875 !default;
 $card-spacer-x-sm: 1rem !default; // (C)
 $card-border-width: 0;
 $card-border-color: $border-color !default;
@@ -875,7 +875,7 @@ $offcanvas-transition-duration: 0.25s !default;
 $overflows: auto, hidden, scroll, visible !default;
 
 // Config
-$rtl-support: false !default;
+$rtL-support: false !default;
 $dark-style: false !default;
 
 // * Chevron Icons

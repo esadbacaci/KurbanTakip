@@ -1,4 +1,4 @@
-@font-face {
+﻿@font-face {
   font-family: "boxicons";
   font-weight: normal;
   font-style: normal;
@@ -596,7 +596,7 @@
   content: "\e931";
 }
 
-.bxl-gitlab:before {
+.bxl-gitLab:before {
   content: "\e932";
 }
 
@@ -5548,7 +5548,7 @@
   content: "\ee07";
 }
 
-.bx-outline:before {
+.bx-outLine:before {
   content: "\ee08";
 }
 

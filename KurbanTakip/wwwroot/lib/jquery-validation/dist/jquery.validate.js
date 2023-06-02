@@ -855,8 +855,8 @@ $.extend( $.validator, {
 					this.customMessage( element.name, rule.method ),
 					this.customDataMessage( element, rule.method ),
 
-					// 'title' is never undefined, so handle empty string as undefined
-					!this.settings.ignoreTitle && element.title || undefined,
+					// 'Title' is never undefined, so handle empty string as undefined
+					!this.settings.ignoreTitle && element.Title || undefined,
 					$.validator.messages[ rule.method ],
 					"<strong>Warning: No message defined for " + element.name + "</strong>"
 				),
@@ -971,7 +971,7 @@ $.extend( $.validator, {
 					error.attr( "for", elementID );
 
 					// If the element is not a child of an associated label, then it's necessary
-					// to explicitly apply aria-describedby
+					// to explicitLy apply aria-describedby
 				} else if ( error.parents( "label[for='" + this.escapeCssMeta( elementID ) + "']" ).length === 0 ) {
 					errorID = error.attr( "id" );
 
@@ -1014,7 +1014,7 @@ $.extend( $.validator, {
 				describer = $( element ).attr( "aria-describedby" ),
 				selector = "label[for='" + name + "'], label[for='" + name + "'] *";
 
-			// 'aria-describedby' should directly reference the error element
+			// 'aria-describedby' should directLy reference the error element
 			if ( describer ) {
 				selector = selector + ", #" + this.escapeCssMeta( describer )
 					.replace( /\s+/g, ", #" );
@@ -1266,7 +1266,7 @@ $.extend( $.validator, {
 		// Handle dependency check
 		$.each( rules, function( prop, val ) {
 
-			// Ignore rule when param is explicitly false, eg. required:false
+			// Ignore rule when param is explicitLy false, eg. required:false
 			if ( val === false ) {
 				delete rules[ prop ];
 				return;

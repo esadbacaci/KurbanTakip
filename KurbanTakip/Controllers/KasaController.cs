@@ -12,6 +12,7 @@ namespace KurbanTakip.Controllers
     public class KasaController : Controller
     {
         KasaManager km = new KasaManager(new EfKasaRepository());
+        CariIslemManager cim = new CariIslemManager(new EfCariIslemRepository());
         public IActionResult Index()
         {
             var values=km.GetList();

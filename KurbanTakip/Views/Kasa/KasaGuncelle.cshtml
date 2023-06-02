@@ -20,6 +20,12 @@
 						<label class="form-label" for="basic-default">Açıklama</label>
 						<input value="@Model.Aciklama" type="text" id="Aciklama" class="form-control" name="Aciklama" required />
 					</div>
+					<div class="mb-3 ">
+						<label for="nameBasic" class="form-label">Tarih</label>
+						<div class="col mb-3">
+							<input value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" name="Tarih" class="form-control" type="datetime-local" />
+						</div>
+					</div>
 					<input type="hidden" name="Tarih" value="@DateTime.Now.ToShortDateString()" />
 					<button type="submit" class="btn btn-primary">Güncelle</button>
 				</form>

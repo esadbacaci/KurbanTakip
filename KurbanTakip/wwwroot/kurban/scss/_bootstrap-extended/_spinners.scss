@@ -1,4 +1,4 @@
-// Spinners
+﻿// Spinners
 //
 
 //Large size
@@ -14,7 +14,7 @@
   border-width: $spinner-border-width-lg;
 }
 
-@include keyframes('spinner-border-rtl') {
+@include keyframes('spinner-border-rtL') {
   to {
     transform: rotate(-360deg);
   }

@@ -1,4 +1,4 @@
-// Buttons
+﻿// Buttons
 // *******************************************************************************
 
 // Basic
@@ -89,11 +89,11 @@
   // }
 }
 
-// Outline
-@mixin button-outline-variant($color: null, $color-hover: null, $hover-color: null) {
+// OutLine
+@mixin button-outLine-variant($color: null, $color-hover: null, $hover-color: null) {
 }
 // ? $hover-color <-> $color-hover used by bootstrap
-@mixin template-button-outline-variant($parent, $color, $hover-color: null) {
+@mixin template-button-outLine-variant($parent, $color, $hover-color: null) {
   $color: $color;
   $background: $color;
   $color-hover: color-contrast($color);

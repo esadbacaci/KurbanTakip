@@ -29,12 +29,12 @@
 						<td>@item.Id</td>
 						<td><strong>@item.Ad</strong></td>
 						<td>@Model.Hissecarikarts.Where(c=>c.StokId == item.Id).ToList().Count()/ @item.HisseAdet</td>
-						<td>@item.HisseFiyat.ToString("0.##") TL</td>
+						<td>@item.HisseFiyat.ToString("0.##") ₺</td>
 						<td>
 							<ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
 								@foreach (var cari in Model.Hissecarikarts.Where(c => c.StokId == item.Id))
 								{
-									<li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="@Model.Carikarts.Where(c=>c.Id == cari.CariKartId).FirstOrDefault().AdSoyad">
+									<li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" Title="@Model.Carikarts.Where(c=>c.Id == cari.CariKartId).FirstOrDefault().AdSoyad">
 										<img src="~/kurban/assets/img/avatars/avatar.png" alt="Avatar" class="rounded-circle" />
 									</li>
 								}
@@ -46,7 +46,7 @@
 						<td>@item.Cins</td>
 						<td><a href="/Kurbanlik/KurbanlikDetay/@item.Id" class="btn btn-dark" style="color:white">Hissedarlar</a></td>
 						<td><a href="/Kurbanlik/KurbanlikGuncelle/@item.Id" class="btn btn-warning">Düzenle</a></td>
-						<td><a href="/Kurbanlik/KurbanlikSil/@item.Id" class="btn btn-danger">Sil</a></td>
+						<td><a href="#" class="btn btn-danger" onclick="confirmDelete('@item.Id')">Sil</a></td>
 
 
 					</tr>
@@ -57,3 +57,19 @@
 	</div>
 </div>
 
+<script>
+    function confirmDelete(itemId) {
+        swal({
+            title: "Emin misiniz?",
+            text: "Bu işlemi geri alamazsınız!",
+            icon: "warning",
+            buttons: ["İptal", "Sil"],
+            dangerMode: true,
+        })
+        .then((confirmed) => {
+            if (confirmed) {
+                window.location.href = "/Kurbanlik/KurbanlikSil/" + itemId;
+            }
+        });
+    }
+</script>

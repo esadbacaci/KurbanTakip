@@ -1,4 +1,4 @@
-// Unobtrusive validation support library for jQuery and jQuery Validate
+﻿// Unobtrusive validation support library for jQuery and jQuery Validate
 // Copyright (c) .NET Foundation. All rights reserved.
 // Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 // @version v3.2.11
@@ -102,7 +102,7 @@
         if ($form.data(key)) {
             return;
         }
-        // Set a flag that indicates we're currently resetting the form.
+        // Set a flag that indicates we're currentLy resetting the form.
         $form.data(key, true);
         try {
             $form.data("validator").resetForm();

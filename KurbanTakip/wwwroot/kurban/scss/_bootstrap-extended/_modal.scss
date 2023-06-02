@@ -1,4 +1,4 @@
-// Modals
+﻿// Modals
 // *******************************************************************************
 
 // Modal Shadow
@@ -25,7 +25,7 @@
     &:focus,
     &:active {
       opacity: 1;
-      outline: none;
+      outLine: none;
 
       @include ltr-style {
         transform: translate(20px, -20px);

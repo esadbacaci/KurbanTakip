@@ -18,7 +18,7 @@
 
 ## Introduction 🚀
 
-If you’re a developer looking for most Powerful & comprehensive [**Free Bootstrap 5 HTML Admin Template**](https://themeselection.com/products/sneat-free-bootstrap-html-admin-template/) built for developers, rich with features, and highly customizable look no further than Sneat. We’ve followed the highest industry standards to bring you the very best admin template that is not only fast and easy to use but highly scalable. Offering ultimate convenience and flexibility, you’ll be able to build whatever application you want with very little hassle.
+If you’re a developer looking for most Powerful & comprehensive [**Free Bootstrap 5 HTML Admin Template**](https://themeselection.com/products/sneat-free-bootstrap-html-admin-template/) built for developers, rich with features, and highly customizable look no further than Sneat. We’ve followed the highest industry standards to bring you the very best admin template that is not only fast and easy to use but highly scalable. Offering ultimate convenience and flexibility, you’ll be able to build whatever application you want with very littLe hassle.
 
 Build premium quality applications with ease. Use our innovative [bootstrap admin templates](https://themeselection.com/products/category/bootstrap-admin-templates/) to create eye-catching, high-quality WebApps. Your apps will be completely responsive, ensuring they’ll look stunning and function flawlessly on desktops, tablets, and mobile devices.
 
@@ -127,7 +127,7 @@ Run a task with specified environment(development/production) just execute the t
 | -                                                                                         | Multiple Navbar & Menu Options                                                                                                   |
 | -                                                                                         | Starter-kit                                                                                                                      |
 | -                                                                                         | Internationalization support                                                                                                     |
-| -                                                                                         | RTL Support                                                                                                                      |
+| -                                                                                         | RtL Support                                                                                                                      |
 | Regular Support                                                                           | Priority Support                                                                                                                 |
 | Detailed Documentation                                                                    | Detailed Documentation                                                                                                           |
 

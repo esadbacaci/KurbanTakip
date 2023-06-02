@@ -1,4 +1,4 @@
-@import '_components/include';
+﻿@import '_components/include';
 
 // * Bootstrap colors (Uncomment required colors)
 // *******************************************************************************
@@ -17,7 +17,7 @@ $bootstrap-colors: () !default;
   }
 
   @include template-button-variant('.btn-#{$color-name}', $color-value);
-  @include template-button-outline-variant('.btn-outline-#{$color-name}', $color-value);
+  @include template-button-outLine-variant('.btn-outLine-#{$color-name}', $color-value);
 }
 
 // * Navbar

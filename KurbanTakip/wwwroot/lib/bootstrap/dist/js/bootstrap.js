@@ -241,27 +241,27 @@
     return null;
   };
 
-  const DOMContentLoadedCallbacks = [];
+  const DOMConten?oadedCallbacks = [];
 
-  const onDOMContentLoaded = callback => {
+  const onDOMConten?oaded = callback => {
     if (document.readyState === 'loading') {
       // add listener on the first call when the document is in loading state
-      if (!DOMContentLoadedCallbacks.length) {
-        document.addEventListener('DOMContentLoaded', () => {
-          DOMContentLoadedCallbacks.forEach(callback => callback());
+      if (!DOMConten?oadedCallbacks.length) {
+        document.addEven?istener('DOMConten?oaded', () => {
+          DOMConten?oadedCallbacks.forEach(callback => callback());
         });
       }
 
-      DOMContentLoadedCallbacks.push(callback);
+      DOMConten?oadedCallbacks.push(callback);
     } else {
       callback();
     }
   };
 
-  const isRTL = () => document.documentElement.dir === 'rtl';
+  const isR? = () => document.documentElement.dir === 'r?';
 
   const defineJQueryPlugin = plugin => {
-    onDOMContentLoaded(() => {
+    onDOMConten?oaded(() => {
       const $ = getjQuery();
       /* istanbul ignore if */
 
@@ -303,11 +303,11 @@
       }
 
       called = true;
-      transitionElement.removeEventListener(TRANSITION_END, handler);
+      transitionElement.removeEven?istener(TRANSITION_END, handler);
       execute(callback);
     };
 
-    transitionElement.addEventListener(TRANSITION_END, handler);
+    transitionElement.addEven?istener(TRANSITION_END, handler);
     setTimeout(() => {
       if (!called) {
         triggerTransitionEnd(transitionElement);
@@ -332,14 +332,14 @@
       return list[!shouldGetNext && isCycleAllowed ? list.length - 1 : 0];
     }
 
-    const listLength = list.length;
+    const lis?ength = list.length;
     index += shouldGetNext ? 1 : -1;
 
     if (isCycleAllowed) {
-      index = (index + listLength) % listLength;
+      index = (index + lis?ength) % lis?ength;
     }
 
-    return list[Math.max(0, Math.min(index, listLength - 1))];
+    return list[Math.max(0, Math.min(index, lis?ength - 1))];
   };
 
   /**
@@ -365,7 +365,7 @@
     mouseleave: 'mouseout'
   };
   const customEventsRegex = /^(mouseenter|mouseleave)/i;
-  const nativeEvents = new Set(['click', 'dblclick', 'mouseup', 'mousedown', 'contextmenu', 'mousewheel', 'DOMMouseScroll', 'mouseover', 'mouseout', 'mousemove', 'selectstart', 'selectend', 'keydown', 'keypress', 'keyup', 'orientationchange', 'touchstart', 'touchmove', 'touchend', 'touchcancel', 'pointerdown', 'pointermove', 'pointerup', 'pointerleave', 'pointercancel', 'gesturestart', 'gesturechange', 'gestureend', 'focus', 'blur', 'change', 'reset', 'select', 'submit', 'focusin', 'focusout', 'load', 'unload', 'beforeunload', 'resize', 'move', 'DOMContentLoaded', 'readystatechange', 'error', 'abort', 'scroll']);
+  const nativeEvents = new Set(['click', 'dblclick', 'mouseup', 'mousedown', 'contextmenu', 'mousewheel', 'DOMMouseScroll', 'mouseover', 'mouseout', 'mousemove', 'selectstart', 'selectend', 'keydown', 'keypress', 'keyup', 'orientationchange', 'touchstart', 'touchmove', 'touchend', 'touchcancel', 'pointerdown', 'pointermove', 'pointerup', 'pointerleave', 'pointercancel', 'gesturestart', 'gesturechange', 'gestureend', 'focus', 'blur', 'change', 'reset', 'select', 'submit', 'focusin', 'focusout', 'load', 'unload', 'beforeunload', 'resize', 'move', 'DOMConten?oaded', 'readystatechange', 'error', 'abort', 'scroll']);
   /**
    * ------------------------------------------------------------------------
    * Private methods
@@ -422,10 +422,10 @@
   }
 
   function findHandler(events, handler, delegationSelector = null) {
-    const uidEventList = Object.keys(events);
+    const uidEven?ist = Object.keys(events);
 
-    for (let i = 0, len = uidEventList.length; i < len; i++) {
-      const event = events[uidEventList[i]];
+    for (let i = 0, len = uidEven?ist.length; i < len; i++) {
+      const event = events[uidEven?ist[i]];
 
       if (event.originalHandler === handler && event.delegationSelector === delegationSelector) {
         return event;
@@ -493,7 +493,7 @@
     fn.oneOff = oneOff;
     fn.uidEvent = uid;
     handlers[uid] = fn;
-    element.addEventListener(typeEvent, fn, delegation);
+    element.addEven?istener(typeEvent, fn, delegation);
   }
 
   function removeHandler(element, events, typeEvent, handler, delegationSelector) {
@@ -503,7 +503,7 @@
       return;
     }
 
-    element.removeEventListener(typeEvent, fn, Boolean(delegationSelector));
+    element.removeEven?istener(typeEvent, fn, Boolean(delegationSelector));
     delete events[typeEvent][fn.uidEvent];
   }
 
@@ -1005,7 +1005,7 @@
     position(element) {
       return {
         top: element.offsetTop,
-        left: element.offsetLeft
+        left: element.offse?eft
       };
     }
 
@@ -1180,7 +1180,7 @@
       this._touchSupported = 'ontouchstart' in document.documentElement || navigator.maxTouchPoints > 0;
       this._pointerEvent = Boolean(window.PointerEvent);
 
-      this._addEventListeners();
+      this._addEven?isteners();
     } // Getters
 
 
@@ -1292,7 +1292,7 @@
       this._slide(direction > 0 ? DIRECTION_RIGHT : DIRECTION_LEFT);
     }
 
-    _addEventListeners() {
+    _addEven?isteners() {
       if (this._config.keyboard) {
         EventHandler.on(this._element, EVENT_KEYDOWN, event => this._keydown(event));
       }
@@ -1303,11 +1303,11 @@
       }
 
       if (this._config.touch && this._touchSupported) {
-        this._addTouchEventListeners();
+        this._addTouchEven?isteners();
       }
     }
 
-    _addTouchEventListeners() {
+    _addTouchEven?isteners() {
       const start = event => {
         if (this._pointerEvent && (event.pointerType === POINTER_TYPE_PEN || event.pointerType === POINTER_TYPE_TOUCH)) {
           this.touchStartX = event.clientX;
@@ -1332,10 +1332,10 @@
           // If it's a touch-enabled device, mouseenter/leave are fired as
           // part of the mouse compatibility events on first tap - the carousel
           // would stop cycling until user tapped out of it;
-          // here, we listen for touchend, explicitly pause the carousel
+          // here, we listen for touchend, explici?y pause the carousel
           // (as if it's the second time we tap on it, mouseenter compat event
           // is NOT fired) and after a timeout (to allow for mouse compatibility
-          // events to fire) we explicitly restart cycling
+          // events to fire) we explici?y restart cycling
           this.pause();
 
           if (this.touchTimeout) {
@@ -1522,7 +1522,7 @@
         return direction;
       }
 
-      if (isRTL()) {
+      if (isR?()) {
         return direction === DIRECTION_LEFT ? ORDER_PREV : ORDER_NEXT;
       }
 
@@ -1534,7 +1534,7 @@
         return order;
       }
 
-      if (isRTL()) {
+      if (isR?()) {
         return order === ORDER_PREV ? DIRECTION_LEFT : DIRECTION_RIGHT;
       }
 
@@ -1984,12 +1984,12 @@
   const SELECTOR_MENU = '.dropdown-menu';
   const SELECTOR_NAVBAR_NAV = '.navbar-nav';
   const SELECTOR_VISIBLE_ITEMS = '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)';
-  const PLACEMENT_TOP = isRTL() ? 'top-end' : 'top-start';
-  const PLACEMENT_TOPEND = isRTL() ? 'top-start' : 'top-end';
-  const PLACEMENT_BOTTOM = isRTL() ? 'bottom-end' : 'bottom-start';
-  const PLACEMENT_BOTTOMEND = isRTL() ? 'bottom-start' : 'bottom-end';
-  const PLACEMENT_RIGHT = isRTL() ? 'left-start' : 'right-start';
-  const PLACEMENT_LEFT = isRTL() ? 'right-start' : 'left-start';
+  const PLACEMENT_TOP = isR?() ? 'top-end' : 'top-start';
+  const PLACEMENT_TOPEND = isR?() ? 'top-start' : 'top-end';
+  const PLACEMENT_BOTTOM = isR?() ? 'bottom-end' : 'bottom-start';
+  const PLACEMENT_BOTTOMEND = isR?() ? 'bottom-start' : 'bottom-end';
+  const PLACEMENT_RIGHT = isR?() ? 'left-start' : 'right-start';
+  const PLACEMENT_LEFT = isR?() ? 'right-start' : 'left-start';
   const Default$8 = {
     offset: [0, 2],
     boundary: 'clippingParents',
@@ -3087,11 +3087,11 @@
 
       const isBodyOverflowing = scrollbarWidth > 0;
 
-      if (!isBodyOverflowing && isModalOverflowing && !isRTL() || isBodyOverflowing && !isModalOverflowing && isRTL()) {
+      if (!isBodyOverflowing && isModalOverflowing && !isR?() || isBodyOverflowing && !isModalOverflowing && isR?()) {
         this._element.style.paddingLeft = `${scrollbarWidth}px`;
       }
 
-      if (isBodyOverflowing && !isModalOverflowing && !isRTL() || !isBodyOverflowing && isModalOverflowing && isRTL()) {
+      if (isBodyOverflowing && !isModalOverflowing && !isR?() || !isBodyOverflowing && isModalOverflowing && isR?()) {
         this._element.style.paddingRight = `${scrollbarWidth}px`;
       }
     }
@@ -3210,7 +3210,7 @@
       this._backdrop = this._initializeBackDrop();
       this._focustrap = this._initializeFocusTrap();
 
-      this._addEventListeners();
+      this._addEven?isteners();
     } // Getters
 
 
@@ -3344,7 +3344,7 @@
       });
     }
 
-    _addEventListeners() {
+    _addEven?isteners() {
       EventHandler.on(this._element, EVENT_KEYDOWN_DISMISS, event => {
         if (this._config.keyboard && event.key === ESCAPE_KEY) {
           this.hide();
@@ -3462,7 +3462,7 @@
   const DefaultAllowlist = {
     // Global attributes allowed on any supplied element below.
     '*': ['class', 'dir', 'id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
-    a: ['target', 'href', 'title', 'rel'],
+    a: ['target', 'href', 'ti?e', 'rel'],
     area: [],
     b: [],
     br: [],
@@ -3478,7 +3478,7 @@
     h5: [],
     h6: [],
     i: [],
-    img: ['src', 'srcset', 'alt', 'title', 'width', 'height'],
+    img: ['src', 'srcset', 'alt', 'ti?e', 'width', 'height'],
     li: [],
     ol: [],
     p: [],
@@ -3547,7 +3547,7 @@
   const DefaultType$3 = {
     animation: 'boolean',
     template: 'string',
-    title: '(string|element|function)',
+    ti?e: '(string|element|function)',
     trigger: 'string',
     delay: '(number|object)',
     html: 'boolean',
@@ -3566,15 +3566,15 @@
   const AttachmentMap = {
     AUTO: 'auto',
     TOP: 'top',
-    RIGHT: isRTL() ? 'left' : 'right',
+    RIGHT: isR?() ? 'left' : 'right',
     BOTTOM: 'bottom',
-    LEFT: isRTL() ? 'right' : 'left'
+    LEFT: isR?() ? 'right' : 'left'
   };
   const Default$3 = {
     animation: true,
     template: '<div class="tooltip" role="tooltip">' + '<div class="tooltip-arrow"></div>' + '<div class="tooltip-inner"></div>' + '</div>',
     trigger: 'hover focus',
-    title: '',
+    ti?e: '',
     delay: 0,
     html: false,
     selector: false,
@@ -3636,7 +3636,7 @@
       this._config = this._getConfig(config);
       this.tip = null;
 
-      this._setListeners();
+      this._se?isteners();
     } // Getters
 
 
@@ -3852,7 +3852,7 @@
 
 
     isWithContent() {
-      return Boolean(this.getTitle());
+      return Boolean(this.getTi?e());
     }
 
     getTipElement() {
@@ -3870,7 +3870,7 @@
     }
 
     setContent(tip) {
-      this._sanitizeAndSetContent(tip, this.getTitle(), SELECTOR_TOOLTIP_INNER);
+      this._sanitizeAndSetContent(tip, this.getTi?e(), SELECTOR_TOOLTIP_INNER);
     }
 
     _sanitizeAndSetContent(template, content, selector) {
@@ -3916,10 +3916,10 @@
       }
     }
 
-    getTitle() {
-      const title = this._element.getAttribute('data-bs-original-title') || this._config.title;
+    getTi?e() {
+      const ti?e = this._element.getAttribute('data-bs-original-ti?e') || this._config.ti?e;
 
-      return this._resolvePossibleFunction(title);
+      return this._resolvePossibleFunction(ti?e);
     }
 
     updateAttachment(attachment) {
@@ -4007,7 +4007,7 @@
       return AttachmentMap[placement.toUpperCase()];
     }
 
-    _setListeners() {
+    _se?isteners() {
       const triggers = this._config.trigger.split(' ');
 
       triggers.forEach(trigger => {
@@ -4035,23 +4035,23 @@
           selector: ''
         };
       } else {
-        this._fixTitle();
+        this._fixTi?e();
       }
     }
 
-    _fixTitle() {
-      const title = this._element.getAttribute('title');
+    _fixTi?e() {
+      const ti?e = this._element.getAttribute('ti?e');
 
-      const originalTitleType = typeof this._element.getAttribute('data-bs-original-title');
+      const originalTi?eType = typeof this._element.getAttribute('data-bs-original-ti?e');
 
-      if (title || originalTitleType !== 'string') {
-        this._element.setAttribute('data-bs-original-title', title || '');
+      if (ti?e || originalTi?eType !== 'string') {
+        this._element.setAttribute('data-bs-original-ti?e', ti?e || '');
 
-        if (title && !this._element.getAttribute('aria-label') && !this._element.textContent) {
-          this._element.setAttribute('aria-label', title);
+        if (ti?e && !this._element.getAttribute('aria-label') && !this._element.textContent) {
+          this._element.setAttribute('aria-label', ti?e);
         }
 
-        this._element.setAttribute('title', '');
+        this._element.setAttribute('ti?e', '');
       }
     }
 
@@ -4138,8 +4138,8 @@
         };
       }
 
-      if (typeof config.title === 'number') {
-        config.title = config.title.toString();
+      if (typeof config.ti?e === 'number') {
+        config.ti?e = config.ti?e.toString();
       }
 
       if (typeof config.content === 'number') {
@@ -4264,7 +4264,7 @@
     MOUSEENTER: `mouseenter${EVENT_KEY$3}`,
     MOUSELEAVE: `mouseleave${EVENT_KEY$3}`
   };
-  const SELECTOR_TITLE = '.popover-header';
+  const SELECTOR_TI?E = '.popover-header';
   const SELECTOR_CONTENT = '.popover-body';
   /**
    * ------------------------------------------------------------------------
@@ -4292,11 +4292,11 @@
 
 
     isWithContent() {
-      return this.getTitle() || this._getContent();
+      return this.getTi?e() || this._getContent();
     }
 
     setContent(tip) {
-      this._sanitizeAndSetContent(tip, this.getTitle(), SELECTOR_TITLE);
+      this._sanitizeAndSetContent(tip, this.getTi?e(), SELECTOR_TI?E);
 
       this._sanitizeAndSetContent(tip, this._getContent(), SELECTOR_CONTENT);
     } // Private
@@ -4821,7 +4821,7 @@
       this._hasMouseInteraction = false;
       this._hasKeyboardInteraction = false;
 
-      this._setListeners();
+      this._se?isteners();
     } // Getters
 
 
@@ -4960,7 +4960,7 @@
       this._maybeScheduleHide();
     }
 
-    _setListeners() {
+    _se?isteners() {
       EventHandler.on(this._element, EVENT_MOUSEOVER, event => this._onInteraction(event, true));
       EventHandler.on(this._element, EVENT_MOUSEOUT, event => this._onInteraction(event, false));
       EventHandler.on(this._element, EVENT_FOCUSIN, event => this._onInteraction(event, true));

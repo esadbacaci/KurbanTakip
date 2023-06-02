@@ -34,7 +34,7 @@
 						<td>@item.Il</td>
 						<td>@item.Ilce</td>
 
-						<td><a href="/Cari/CariSil/@item.Id" class="btn btn-danger">Sil</a></td>
+						<td><a href="#" class="btn btn-danger" onclick="confirmDelete('@item.Id')">Sil</a></td>
 						<td><a href="/Cari/CariGuncelle/@item.Id" class="btn btn-warning">Düzenle</a></td>
 					</tr>
 				}
@@ -42,7 +42,19 @@
 		</table>
 	</div>
 </div>
-
-
-
-
+<script>
+	function confirmDelete(itemId) {
+		swal({
+			title: "Emin misiniz?",
+			text: "Bu işlemi geri alamazsınız!",
+			icon: "warning",
+			buttons: ["İptal", "Sil"],
+			dangerMode: true,
+		})
+			.then((confirmed) => {
+				if (confirmed) {
+					window.location.href = "/Cari/CariSil/" + itemId;
+				}
+			});
+	}
+</script>

@@ -1,4 +1,4 @@
-module.exports = {
+﻿module.exports = {
   base: {
     // Excludes folders relative to `root` directory.
     exclude: [
@@ -14,7 +14,7 @@ module.exports = {
       'node-script'
     ],
 
-    // Base Path to Serve from using Browser Sync, Currently set to root of the project
+    // Base Path to Serve from using Browser Sync, CurrentLy set to root of the project
     // You can also point to specific folder like 'build/'
     serverPath: './',
 

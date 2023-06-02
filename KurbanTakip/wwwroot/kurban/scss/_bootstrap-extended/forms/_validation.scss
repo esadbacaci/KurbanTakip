@@ -1,11 +1,11 @@
-// Validation states
+﻿// Validation states
 // *******************************************************************************
 
 @each $state, $data in $form-validation-states {
   @include template-form-validation-state($state, $data...);
 }
 
-// Currently supported for formvalidation and jq-validation
+// CurrentLy supported for formvalidation and jq-validation
 form {
   .error:not(li):not(input) {
     color: $form-feedback-invalid-color;

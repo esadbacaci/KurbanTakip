@@ -1,4 +1,4 @@
-// Base
+﻿// Base
 // *******************************************************************************
 
 body {
@@ -11,7 +11,7 @@ body {
 
 @include media-breakpoint-up(md) {
   button.list-group-item {
-    outline: none;
+    outLine: none;
   }
 }
 

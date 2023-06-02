@@ -1,4 +1,4 @@
-// Button groups
+﻿// Button groups
 // *******************************************************************************
 
 // * Split button
@@ -40,19 +40,19 @@
 
 // Button groups border
 
-.btn-group > .btn-group:first-child > .btn:not([class*='btn-outline-']):first-child,
-.input-group > .btn:not([class*='btn-outline-']):first-child,
-:not(.btn-group):not(.input-group) > .btn-group > .btn:not([class*='btn-outline-']):first-child,
-.input-group > .btn-group:first-child > .btn:not([class*='btn-outline-']):first-child {
+.btn-group > .btn-group:first-child > .btn:not([class*='btn-outLine-']):first-child,
+.input-group > .btn:not([class*='btn-outLine-']):first-child,
+:not(.btn-group):not(.input-group) > .btn-group > .btn:not([class*='btn-outLine-']):first-child,
+.input-group > .btn-group:first-child > .btn:not([class*='btn-outLine-']):first-child {
   @include ltr-style {
     border-left-color: transparent;
   }
 }
 
-.btn-group > .btn-group:last-child > .btn:not([class*='btn-outline-']):last-of-type,
-.input-group > .btn:not([class*='btn-outline-']):last-of-type,
-:not(.btn-group):not(.input-group) > .btn-group > .btn:not([class*='btn-outline-']):last-of-type,
-.input-group > .btn-group:last-child > .btn:not([class*='btn-outline-']):last-of-type {
+.btn-group > .btn-group:last-child > .btn:not([class*='btn-outLine-']):last-of-type,
+.input-group > .btn:not([class*='btn-outLine-']):last-of-type,
+:not(.btn-group):not(.input-group) > .btn-group > .btn:not([class*='btn-outLine-']):last-of-type,
+.input-group > .btn-group:last-child > .btn:not([class*='btn-outLine-']):last-of-type {
   @include ltr-style {
     border-right-color: transparent;
   }

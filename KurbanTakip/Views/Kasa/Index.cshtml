@@ -4,51 +4,7 @@
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="col-4 mb-4">
-	<div class="card">
-		<div class="card-body">
-			<div class="d-flex flex-column">
-				<div class="card-title">
-					<h5 class="text-nowrap mb-2">Giriş</h5>
-				</div>
-				<div class="mt-auto">
-					<h3 class="mb-0 text-danger">0 TL</h3>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="col-4 mb-4">
-	<div class="card">
-		<div class="card-body">
-			<div class="d-flex flex-column">
-				<div class="card-title">
-					<h5 class="text-nowrap mb-2">Çıkış</h5>
-				</div>
-				<div class="mt-auto">
-					<h3 class="mb-0 text-warning">0 TL</h3>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="col-4 mb-4">
-	<div class="card">
-		<div class="card-body">
-			<div class="d-flex flex-column">
-				<div class="card-title">
-					<h5 class="text-nowrap mb-2">Toplam Bakiye</h5>
-				</div>
-				<div class="mt-auto">
-					<h3 class="mb-0 text-success">0 TL</h3>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="card">
+<div class="card second">
 	<h5 class="card-header">Kasa</h5>
 	<div class="card-body">
 		<div class="table-responsive text-nowrap">
@@ -56,6 +12,7 @@
 				<thead>
 					<tr>
 						<th>Sıra No</th>
+						<th>Cari Adı</th>
 						<th>Tarih</th>
 						<th>Tutar</th>
 						<th>Açıklama</th>
@@ -65,29 +22,46 @@
 					</tr>
 				</thead>
 				<tbody>
+					@{
+						decimal toplamGirisTutari = 0;
+						decimal toplamCikisTutari = 0;
+						decimal toplamBakiye = 0;
+					}
 					@foreach (var item in Model)
 					{
 						<tr>
 							<td>@item.Id</td>
 							<td>@item.Tarih.ToShortDateString()</td>
-							<td class="text-end"><span class="badge bg-label-primary me-1">@string.Format("{0:0.##} TL", item.Tutar)</span></td>
+							<td><span class="badge bg-label-primary me-1">@string.Format("{0:0.##} tL", item.Tutar)</span></td>
 							<td>@item.Aciklama</td>
 							<td>
 								@if (item.GirisMi.HasValue)
 								{
-									if (item.GirisMi.Value)
+									if (item.GirisMi == true)
 									{
 										<text>Giriş</text>
+										toplamGirisTutari += (decimal)item.Tutar; // Giriş ise tutarı toplam tutara ekle
+										ViewBag.GirisToplam = toplamGirisTutari;
+
 									}
 									else
 									{
 										<text>Çıkış</text>
+										toplamCikisTutari += (decimal)item.Tutar;
+										ViewBag.CikisToplam = toplamCikisTutari;
 									}
 								}
+
 							</td>
 							<td><a href="/Kasa/KasaGuncelle/@item.Id" class="btn btn-warning">Düzenle</a></td>
-							<td><a href="/Kasa/KasaSil/@item.Id" class="btn btn-danger">Sil</a></td>
+							<td>
+								<a href="#" class="btn btn-danger" onclick="confirmDelete('@item.Id')">Sil</a>
+							</td>
 						</tr>
+					}
+					@{
+						toplamBakiye = toplamGirisTutari - toplamCikisTutari;
+						ViewBag.bakiyetoplam = toplamBakiye;
 					}
 				</tbody>
 			</table>
@@ -95,3 +69,84 @@
 	</div>
 </div>
 
+<div class="row first">
+	<div class="col-4 mb-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="d-flex flex-column">
+					<div class="card-Title">
+						<h5 class="text-nowrap mb-2">Giriş</h5>
+					</div>
+					<div class="mt-auto">
+						@if (toplamGirisTutari != 0)
+						{
+							<h3 class="mb-0 text-danger">@string.Format("{0:0.##}",@ViewBag.GirisToplam) ₺</h3>
+						}
+						else
+						{
+							<h3 class="mb-0 text-danger">Henüz Giriş Yok</h3>
+
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-4 mb-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="d-flex flex-column">
+					<div class="card-Title">
+						<h5 class="text-nowrap mb-2">Çıkış</h5>
+					</div>
+					<div class="mt-auto">
+						@if (toplamCikisTutari != 0)
+						{
+							<h3 class="mb-0 text-warning">@string.Format("{0:0.##}",@ViewBag.CikisToplam) ₺</h3>
+						}
+						else
+						{
+							<h3 class="mb-0 text-warning">Henüz Çıkış Yok</h3>
+
+						}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-4 mb-4">
+		<div class="card">
+			<div class="card-body">
+				<div class="d-flex flex-column">
+					<div class="card-Title">
+						<h5 class="text-nowrap mb-2">Toplam Bakiye</h5>
+					</div>
+					<div class="mt-auto">
+						<h3 class="mb-0 text-success">@ViewBag.bakiyetoplam.ToString("0.##") ₺</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function () {
+		$(".first").insertBefore(".second");
+	});
+</script>
+<script>
+    function confirmDelete(itemId) {
+        swal({
+            title: "Emin misiniz?",
+            text: "Bu işlemi geri alamazsınız!",
+            icon: "warning",
+            buttons: ["İptal", "Sil"],
+            dangerMode: true,
+        })
+        .then((confirmed) => {
+            if (confirmed) {
+                window.location.href = "/Kasa/KasaSil/" + itemId;
+            }
+        });
+    }
+</script>

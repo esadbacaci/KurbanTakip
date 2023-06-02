@@ -1,4 +1,4 @@
-const path = require('path');
+﻿const path = require('path');
 
 // Config
 // -------------------------------------------------------------------------------
@@ -69,7 +69,7 @@ const serveTasks = function () {
     'html/**/*.html',
     'html-starter/**/*.html',
     'assets/vendor/css/*.css',
-    'assets/vendor/css/rtl/*.css',
+    'assets/vendor/css/rtL/*.css',
     'assets/css/*.css',
     'assets/js/*.js'
   ]).on('change', browserSync.reload);

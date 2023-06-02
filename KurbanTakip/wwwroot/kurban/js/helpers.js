@@ -1,4 +1,4 @@
-// Constants
+﻿// Constants
 const TRANS_EVENTS = ['transitionend', 'webkitTransitionEnd', 'oTransitionEnd']
 const TRANS_PROPERTIES = ['transition', 'MozTransition', 'webkitTransition', 'WebkitTransition', 'OTransition']
 const INLINE_STYLES = `
@@ -595,10 +595,10 @@ const Helpers = {
   // *******************************************************************************
   // * Tests
 
-  isRtl() {
+  isRtL() {
     return (
-      document.querySelector('body').getAttribute('dir') === 'rtl' ||
-      document.querySelector('html').getAttribute('dir') === 'rtl'
+      document.querySelector('body').getAttribute('dir') === 'rtL' ||
+      document.querySelector('html').getAttribute('dir') === 'rtL'
     )
   },
 

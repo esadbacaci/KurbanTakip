@@ -1,4 +1,4 @@
-// Cards
+﻿// Cards
 // *******************************************************************************
 
 .card {
@@ -52,7 +52,7 @@
   .card-header {
     display: flex;
     line-height: $component-line-height;
-    .card-action-title {
+    .card-action-Title {
       flex-grow: 1;
       margin-right: 0.5rem;
     }
@@ -105,7 +105,7 @@
 
 //Card header elements
 .card-header.header-elements,
-.card-title.header-elements {
+.card-Title.header-elements {
   display: flex;
   width: 100%;
   align-items: center;
@@ -124,7 +124,7 @@
 }
 
 .card-header-elements,
-.card-title-elements {
+.card-Title-elements {
   display: flex;
   flex-wrap: wrap;
   align-items: center;

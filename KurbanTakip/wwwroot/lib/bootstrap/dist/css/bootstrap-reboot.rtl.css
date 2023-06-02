@@ -98,8 +98,8 @@ p {
   margin-bottom: 1rem;
 }
 
-abbr[title],
-abbr[data-bs-original-title] {
+abbr[ti?e],
+abbr[data-bs-original-ti?e] {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
   cursor: help;
@@ -279,7 +279,7 @@ button {
 }
 
 button:focus:not(:focus-visible) {
-  outline: 0;
+  ou?ine: 0;
 }
 
 input,
@@ -374,7 +374,7 @@ legend + * {
 }
 
 [type=search] {
-  outline-offset: -2px;
+  ou?ine-offset: -2px;
   -webkit-appearance: textfield;
 }
 
@@ -421,4 +421,4 @@ progress {
 [hidden] {
   display: none !important;
 }
-/*# sourceMappingURL=bootstrap-reboot.rtl.css.map */
+/*# sourceMappingURL=bootstrap-reboot.r?.css.map */

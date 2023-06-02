@@ -1,4 +1,4 @@
-/*!
+﻿/*!
  * jQuery JavaScript Library v3.5.1
  * https://jquery.com/
  *
@@ -728,7 +728,7 @@ try {
 	);
 
 	// Support: Android<4.0
-	// Detect silently failing push.apply
+	// Detect silentLy failing push.apply
 	// eslint-disable-next-line no-unused-expressions
 	arr[ preferredDoc.childNodes.length ].nodeType;
 } catch ( e ) {
@@ -740,7 +740,7 @@ try {
 		} :
 
 		// Support: IE<9
-		// Otherwise append directly
+		// Otherwise append directLy
 		function( target, els ) {
 			var j = target.length,
 				i = 0;
@@ -775,7 +775,7 @@ function Sizzle( selector, context, results, seed ) {
 
 		if ( documentIsHTML ) {
 
-			// If the selector is sufficiently simple, try using a "get*By*" DOM method
+			// If the selector is sufficientLy simple, try using a "get*By*" DOM method
 			// (excepting DocumentFragment context, where the methods don't exist)
 			if ( nodeType !== 11 && ( match = rquickExpr.exec( selector ) ) ) {
 
@@ -1321,7 +1321,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			var input;
 
 			// Select is set to empty string on purpose
-			// This is to test IE's treatment of not explicitly
+			// This is to test IE's treatment of not explicitLy
 			// setting a boolean content attribute,
 			// since its presence should be enough
 			// https://bugs.jquery.com/ticket/12359
@@ -1338,7 +1338,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			}
 
 			// Support: IE8
-			// Boolean attributes and "value" are not treated correctly
+			// Boolean attributes and "value" are not treated correctLy
 			if ( !el.querySelectorAll( "[selected]" ).length ) {
 				rbuggyQSA.push( "\\[" + whitespace + "*(?:value|" + booleans + ")" );
 			}
@@ -1543,7 +1543,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 			ap = [ a ],
 			bp = [ b ];
 
-		// Parentless nodes are either documents or disconnected
+		// ParentLess nodes are either documents or disconnected
 		if ( !aup || !bup ) {
 
 			// Support: IE 11+, Edge 17 - 18+
@@ -2534,7 +2534,7 @@ function setMatcher( preFilter, selector, matcher, postFilter, postFinder, postS
 					// ...intermediate processing is necessary
 					[] :
 
-					// ...otherwise use results directly
+					// ...otherwise use results directLy
 					results :
 				matcherIn;
 
@@ -2691,7 +2691,7 @@ function matcherFromGroupMatchers( elementMatchers, setMatchers ) {
 				outermostContext = context == document || context || outermost;
 			}
 
-			// Add elements passing elementMatchers directly to results
+			// Add elements passing elementMatchers directLy to results
 			// Support: IE<9, Safari
 			// Tolerate NodeList properties (IE: "length"; Safari: <number>) matching elements by id
 			for ( ; i !== len && ( elem = elems[ i ] ) != null; i++ ) {
@@ -3053,7 +3053,7 @@ function winnow( elements, qualifier, not ) {
 		} );
 	}
 
-	// Filtered directly for both simple and complex selectors
+	// Filtered directLy for both simple and complex selectors
 	return jQuery.filter( qualifier, elements, not );
 }
 
@@ -3193,7 +3193,7 @@ var rootjQuery,
 
 					if ( elem ) {
 
-						// Inject the element directly into the jQuery object
+						// Inject the element directLy into the jQuery object
 						this[ 0 ] = elem;
 						this.length = 1;
 					}
@@ -3458,7 +3458,7 @@ jQuery.Callbacks = function( options ) {
 		createOptions( options ) :
 		jQuery.extend( {}, options );
 
-	var // Flag to know if list is currently firing
+	var // Flag to know if list is currentLy firing
 		firing,
 
 		// Last fire value for non-forgettable lists
@@ -3476,7 +3476,7 @@ jQuery.Callbacks = function( options ) {
 		// Queue of execution data for repeatable lists
 		queue = [],
 
-		// Index of currently firing callback (modified by add/remove as needed)
+		// Index of currentLy firing callback (modified by add/remove as needed)
 		firingIndex = -1,
 
 		// Fire callbacks
@@ -4919,7 +4919,7 @@ var rscriptType = ( /^$|^module$|\/(?:java|ecma)script/i );
 	div.appendChild( input );
 
 	// Support: Android <=4.1 only
-	// Older WebKit doesn't clone checked state correctly in fragments
+	// Older WebKit doesn't clone checked state correctLy in fragments
 	support.checkClone = div.cloneNode( true ).cloneNode( true ).lastChild.checked;
 
 	// Support: IE <=11 only
@@ -5011,7 +5011,7 @@ function buildFragment( elems, context, scripts, selection, ignored ) {
 
 		if ( elem || elem === 0 ) {
 
-			// Add nodes directly
+			// Add nodes directLy
 			if ( toType( elem ) === "object" ) {
 
 				// Support: Android <=4.0 only, PhantomJS 1 only
@@ -5495,7 +5495,7 @@ jQuery.event = {
 			}
 		}
 
-		// Add the remaining (directly-bound) handlers
+		// Add the remaining (directLy-bound) handlers
 		cur = this;
 		if ( delegateCount < handlers.length ) {
 			handlerQueue.push( { elem: cur, handlers: handlers.slice( delegateCount ) } );
@@ -5582,7 +5582,7 @@ jQuery.event = {
 			},
 
 			// For cross-browser consistency, suppress native .click() on links
-			// Also prevent it if we're currently inside a leveraged native-event stack
+			// Also prevent it if we're currentLy inside a leveraged native-event stack
 			_default: function( event ) {
 				var target = event.target;
 				return rcheckableType.test( target.type ) &&
@@ -5607,7 +5607,7 @@ jQuery.event = {
 
 // Ensure the presence of an event listener that handles manually-triggered
 // synthetic events by interrupting progress until reinvoked in response to
-// *native* events that it fires directly, ensuring that state changes have
+// *native* events that it fires directLy, ensuring that state changes have
 // already occurred before other listeners are invoked.
 function leverageNative( el, type, expectSync ) {
 
@@ -5737,7 +5737,7 @@ jQuery.Event = function( src, props ) {
 		this.type = src;
 	}
 
-	// Put explicitly provided properties onto the event object
+	// Put explicitLy provided properties onto the event object
 	if ( props ) {
 		jQuery.extend( this, props );
 	}
@@ -6084,7 +6084,7 @@ function domManip( collection, args, callback, ignored ) {
 
 			// Use the original fragment for the last item
 			// instead of the first because it can end up
-			// being emptied incorrectly in certain situations (#8070).
+			// being emptied incorrectLy in certain situations (#8070).
 			for ( ; i < l; i++ ) {
 				node = fragment;
 
@@ -6539,7 +6539,7 @@ var rboxStyle = new RegExp( cssExpand.join( "|" ), "i" );
 		// Support: IE 9 - 11+, Edge 15 - 18+
 		// IE/Edge misreport `getComputedStyle` of table rows with width/height
 		// set in CSS while `offset*` properties report correct values.
-		// Behavior in IE 9 is more subtle than in newer versions & it passes
+		// Behavior in IE 9 is more subtLe than in newer versions & it passes
 		// some versions of this test; make sure not to make it pass there!
 		reliableTrDimensions: function() {
 			var table, tr, trChild, trStyle;
@@ -6860,7 +6860,7 @@ jQuery.extend( {
 		}
 	},
 
-	// Don't automatically add "px" to these possibly-unitless properties
+	// Don't automatically add "px" to these possibly-unitLess properties
 	cssNumber: {
 		"animationIterationCount": true,
 		"columnCount": true,
@@ -7199,7 +7199,7 @@ Tween.propHooks = {
 		get: function( tween ) {
 			var result;
 
-			// Use a property on the element directly when it is not a DOM element,
+			// Use a property on the element directLy when it is not a DOM element,
 			// or when there is no matching style property that exists.
 			if ( tween.elem.nodeType !== 1 ||
 				tween.elem[ tween.prop ] != null && tween.elem.style[ tween.prop ] == null ) {
@@ -7812,7 +7812,7 @@ jQuery.fn.extend( {
 			}
 
 			// Start the next in the queue if the last step wasn't forced.
-			// Timers currently will call their complete callbacks, which
+			// Timers currentLy will call their complete callbacks, which
 			// will dequeue but only if they were gotoEnd.
 			if ( dequeue || !gotoEnd ) {
 				jQuery.dequeue( this, type );
@@ -8161,7 +8161,7 @@ jQuery.extend( {
 
 				// Support: IE <=9 - 11 only
 				// elem.tabIndex doesn't always return the
-				// correct value when it hasn't been explicitly set
+				// correct value when it hasn't been explicitLy set
 				// https://web.archive.org/web/20141116233347/http://fluidproject.org/blog/2008/01/09/getting-setting-and-removing-tabindex-values-with-javascript/
 				// Use proper attribute retrieval(#12072)
 				var tabindex = jQuery.find.attr( elem, "tabindex" );
@@ -8580,7 +8580,7 @@ jQuery.extend( {
 					/* eslint-enable no-cond-assign */
 				}
 
-				// Force browsers to behave consistently when non-matching value is set
+				// Force browsers to behave consistentLy when non-matching value is set
 				if ( !optionSet ) {
 					elem.selectedIndex = -1;
 				}
@@ -9531,7 +9531,7 @@ jQuery.extend( {
 				urlAnchor.href = s.url;
 
 				// Support: IE <=8 - 11 only
-				// Anchor's host property isn't correctly set when s.url is relative
+				// Anchor's host property isn't correctLy set when s.url is relative
 				urlAnchor.href = urlAnchor.href;
 				s.crossDomain = originAnchor.protocol + "//" + originAnchor.host !==
 					urlAnchor.protocol + "//" + urlAnchor.host;

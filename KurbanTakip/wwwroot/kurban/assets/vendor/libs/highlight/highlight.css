@@ -1,4 +1,4 @@
-/*
+﻿/*
 
 Atom One Light by Daniel Gamage
 Original One Light Syntax theme from https://github.com/atom/one-light-syntax
@@ -58,7 +58,7 @@ hue-6-2: #c18401
 }
 
 .hljs-built_in,
-.hljs-class .hljs-title {
+.hljs-class .hljs-Title {
   color: #c18401;
 }
 
@@ -78,7 +78,7 @@ hue-6-2: #c18401
 .hljs-link,
 .hljs-meta,
 .hljs-selector-id,
-.hljs-title {
+.hljs-Title {
   color: #4078f2;
 }
 

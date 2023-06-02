@@ -1,12 +1,12 @@
-// Navbar
+﻿// Navbar
 // *******************************************************************************
 
 .navbar {
   z-index: 2;
-  // ! Fix: navbar dropdown focus outline
+  // ! Fix: navbar dropdown focus outLine
   .dropdown:focus,
   .dropdown-toggle:focus {
-    outline: 0;
+    outLine: 0;
   }
   .navbar-toggler {
     border: none;

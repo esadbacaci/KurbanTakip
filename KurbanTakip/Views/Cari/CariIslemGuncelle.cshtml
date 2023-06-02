@@ -1,7 +1,6 @@
-﻿
-@{
-    ViewData["Title"] = "CariIslemGuncelle";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+	ViewData["Title"] = "CariIslemGuncelle";
+	Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="row">
@@ -19,13 +18,18 @@
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-phone">Borç</label>
-						<input value="@Model.Borc" type="number" id="Borc" class="form-control" name="Borc" required />
+						<input value="@Model.Borc" type="text" id="Borc" class="form-control" name="Borc" required />
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-fullname">Alacak</label>
 						<input value="@Model.Alacak" name="Alacak" type="text" class="form-control" id="basic-default-fullname" required />
 					</div>
-					<input type="hidden" name="Tarih" value="@DateTime.Now.ToShortDateString()" />
+					<div class="mb-3 row">
+						<label for="nameBasic" class="form-label">Tarih</label>
+						<div class="col mb-3">
+							<input value="@DateTime.Now.ToString("yyyy-MM-ddTHH:mm")" name="Tarih" class="form-control" type="datetime-local" />
+						</div>
+					</div>
 					<button type="submit" class="btn btn-primary">Güncelle</button>
 				</form>
 			</div>

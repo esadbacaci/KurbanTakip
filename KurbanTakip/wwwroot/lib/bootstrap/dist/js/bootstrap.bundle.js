@@ -236,7 +236,7 @@
     }
   };
 
-  const isRTL = () => document.documentElement.dir === 'rtl';
+  const isRtL = () => document.documentElement.dir === 'rtL';
 
   const defineJQueryPlugin = plugin => {
     onDOMContentLoaded(() => {
@@ -1310,10 +1310,10 @@
           // If it's a touch-enabled device, mouseenter/leave are fired as
           // part of the mouse compatibility events on first tap - the carousel
           // would stop cycling until user tapped out of it;
-          // here, we listen for touchend, explicitly pause the carousel
+          // here, we listen for touchend, explicitLy pause the carousel
           // (as if it's the second time we tap on it, mouseenter compat event
           // is NOT fired) and after a timeout (to allow for mouse compatibility
-          // events to fire) we explicitly restart cycling
+          // events to fire) we explicitLy restart cycling
           this.pause();
 
           if (this.touchTimeout) {
@@ -1500,7 +1500,7 @@
         return direction;
       }
 
-      if (isRTL()) {
+      if (isRtL()) {
         return direction === DIRECTION_LEFT ? ORDER_PREV : ORDER_NEXT;
       }
 
@@ -1512,7 +1512,7 @@
         return order;
       }
 
-      if (isRTL()) {
+      if (isRtL()) {
         return order === ORDER_PREV ? DIRECTION_LEFT : DIRECTION_RIGHT;
       }
 
@@ -2577,7 +2577,7 @@
 
   function getWindowScrollBarX(element) {
     // If <html> has a CSS width greater than the viewport, then this will be
-    // incorrect for RTL.
+    // incorrect for RtL.
     // Popper 1 is broken in this case and never had a bug report so let's assume
     // it's not an issue. I don't think anyone ever specifies width on <html>
     // anyway.
@@ -2601,7 +2601,7 @@
 
     if (visualViewport) {
       width = visualViewport.width;
-      height = visualViewport.height; // Uses Layout Viewport (like Chrome; Safari does not currently)
+      height = visualViewport.height; // Uses Layout Viewport (like Chrome; Safari does not currentLy)
       // In Chrome, it returns a value very close to 0 (+/-) but contains rounding
       // errors due to floating point numbers, so we need to check precision.
       // Safari returns a number <= 0, usually < -1 when pinch-zoomed
@@ -2637,7 +2637,7 @@
     var x = -winScroll.scrollLeft + getWindowScrollBarX(element);
     var y = -winScroll.scrollTop;
 
-    if (getComputedStyle$1(body || html).direction === 'rtl') {
+    if (getComputedStyle$1(body || html).direction === 'rtL') {
       x += max(html.clientWidth, body ? body.clientWidth : 0) - width;
     }
 
@@ -3738,12 +3738,12 @@
   const SELECTOR_MENU = '.dropdown-menu';
   const SELECTOR_NAVBAR_NAV = '.navbar-nav';
   const SELECTOR_VISIBLE_ITEMS = '.dropdown-menu .dropdown-item:not(.disabled):not(:disabled)';
-  const PLACEMENT_TOP = isRTL() ? 'top-end' : 'top-start';
-  const PLACEMENT_TOPEND = isRTL() ? 'top-start' : 'top-end';
-  const PLACEMENT_BOTTOM = isRTL() ? 'bottom-end' : 'bottom-start';
-  const PLACEMENT_BOTTOMEND = isRTL() ? 'bottom-start' : 'bottom-end';
-  const PLACEMENT_RIGHT = isRTL() ? 'left-start' : 'right-start';
-  const PLACEMENT_LEFT = isRTL() ? 'right-start' : 'left-start';
+  const PLACEMENT_TOP = isRtL() ? 'top-end' : 'top-start';
+  const PLACEMENT_TOPEND = isRtL() ? 'top-start' : 'top-end';
+  const PLACEMENT_BOTTOM = isRtL() ? 'bottom-end' : 'bottom-start';
+  const PLACEMENT_BOTTOMEND = isRtL() ? 'bottom-start' : 'bottom-end';
+  const PLACEMENT_RIGHT = isRtL() ? 'left-start' : 'right-start';
+  const PLACEMENT_LEFT = isRtL() ? 'right-start' : 'left-start';
   const Default$8 = {
     offset: [0, 2],
     boundary: 'clippingParents',
@@ -4841,11 +4841,11 @@
 
       const isBodyOverflowing = scrollbarWidth > 0;
 
-      if (!isBodyOverflowing && isModalOverflowing && !isRTL() || isBodyOverflowing && !isModalOverflowing && isRTL()) {
+      if (!isBodyOverflowing && isModalOverflowing && !isRtL() || isBodyOverflowing && !isModalOverflowing && isRtL()) {
         this._element.style.paddingLeft = `${scrollbarWidth}px`;
       }
 
-      if (isBodyOverflowing && !isModalOverflowing && !isRTL() || !isBodyOverflowing && isModalOverflowing && isRTL()) {
+      if (isBodyOverflowing && !isModalOverflowing && !isRtL() || !isBodyOverflowing && isModalOverflowing && isRtL()) {
         this._element.style.paddingRight = `${scrollbarWidth}px`;
       }
     }
@@ -5216,7 +5216,7 @@
   const DefaultAllowlist = {
     // Global attributes allowed on any supplied element below.
     '*': ['class', 'dir', 'id', 'lang', 'role', ARIA_ATTRIBUTE_PATTERN],
-    a: ['target', 'href', 'title', 'rel'],
+    a: ['target', 'href', 'Title', 'rel'],
     area: [],
     b: [],
     br: [],
@@ -5232,7 +5232,7 @@
     h5: [],
     h6: [],
     i: [],
-    img: ['src', 'srcset', 'alt', 'title', 'width', 'height'],
+    img: ['src', 'srcset', 'alt', 'Title', 'width', 'height'],
     li: [],
     ol: [],
     p: [],
@@ -5301,7 +5301,7 @@
   const DefaultType$3 = {
     animation: 'boolean',
     template: 'string',
-    title: '(string|element|function)',
+    Title: '(string|element|function)',
     trigger: 'string',
     delay: '(number|object)',
     html: 'boolean',
@@ -5320,15 +5320,15 @@
   const AttachmentMap = {
     AUTO: 'auto',
     TOP: 'top',
-    RIGHT: isRTL() ? 'left' : 'right',
+    RIGHT: isRtL() ? 'left' : 'right',
     BOTTOM: 'bottom',
-    LEFT: isRTL() ? 'right' : 'left'
+    LEFT: isRtL() ? 'right' : 'left'
   };
   const Default$3 = {
     animation: true,
     template: '<div class="tooltip" role="tooltip">' + '<div class="tooltip-arrow"></div>' + '<div class="tooltip-inner"></div>' + '</div>',
     trigger: 'hover focus',
-    title: '',
+    Title: '',
     delay: 0,
     html: false,
     selector: false,
@@ -5671,9 +5671,9 @@
     }
 
     getTitle() {
-      const title = this._element.getAttribute('data-bs-original-title') || this._config.title;
+      const Title = this._element.getAttribute('data-bs-original-Title') || this._config.Title;
 
-      return this._resolvePossibleFunction(title);
+      return this._resolvePossibleFunction(Title);
     }
 
     updateAttachment(attachment) {
@@ -5794,18 +5794,18 @@
     }
 
     _fixTitle() {
-      const title = this._element.getAttribute('title');
+      const Title = this._element.getAttribute('Title');
 
-      const originalTitleType = typeof this._element.getAttribute('data-bs-original-title');
+      const originalTitleType = typeof this._element.getAttribute('data-bs-original-Title');
 
-      if (title || originalTitleType !== 'string') {
-        this._element.setAttribute('data-bs-original-title', title || '');
+      if (Title || originalTitleType !== 'string') {
+        this._element.setAttribute('data-bs-original-Title', Title || '');
 
-        if (title && !this._element.getAttribute('aria-label') && !this._element.textContent) {
-          this._element.setAttribute('aria-label', title);
+        if (Title && !this._element.getAttribute('aria-label') && !this._element.textContent) {
+          this._element.setAttribute('aria-label', Title);
         }
 
-        this._element.setAttribute('title', '');
+        this._element.setAttribute('Title', '');
       }
     }
 
@@ -5892,8 +5892,8 @@
         };
       }
 
-      if (typeof config.title === 'number') {
-        config.title = config.title.toString();
+      if (typeof config.Title === 'number') {
+        config.Title = config.Title.toString();
       }
 
       if (typeof config.content === 'number') {
@@ -6018,7 +6018,7 @@
     MOUSEENTER: `mouseenter${EVENT_KEY$3}`,
     MOUSELEAVE: `mouseleave${EVENT_KEY$3}`
   };
-  const SELECTOR_TITLE = '.popover-header';
+  const SELECTOR_Title = '.popover-header';
   const SELECTOR_CONTENT = '.popover-body';
   /**
    * ------------------------------------------------------------------------
@@ -6050,7 +6050,7 @@
     }
 
     setContent(tip) {
-      this._sanitizeAndSetContent(tip, this.getTitle(), SELECTOR_TITLE);
+      this._sanitizeAndSetContent(tip, this.getTitle(), SELECTOR_Title);
 
       this._sanitizeAndSetContent(tip, this._getContent(), SELECTOR_CONTENT);
     } // Private

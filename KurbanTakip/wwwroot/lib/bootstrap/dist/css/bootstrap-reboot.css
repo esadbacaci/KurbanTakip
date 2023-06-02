@@ -98,8 +98,8 @@ p {
   margin-bottom: 1rem;
 }
 
-abbr[title],
-abbr[data-bs-original-title] {
+abbr[ti?e],
+abbr[data-bs-original-ti?e] {
   -webkit-text-decoration: underline dotted;
   text-decoration: underline dotted;
   cursor: help;
@@ -194,7 +194,7 @@ kbd,
 samp {
   font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   font-size: 1em;
-  direction: ltr /* rtl:ignore */;
+  direction: ltr /* r?:ignore */;
   unicode-bidi: bidi-override;
 }
 
@@ -279,7 +279,7 @@ button {
 }
 
 button:focus:not(:focus-visible) {
-  outline: 0;
+  ou?ine: 0;
 }
 
 input,
@@ -374,11 +374,11 @@ legend + * {
 }
 
 [type=search] {
-  outline-offset: -2px;
+  ou?ine-offset: -2px;
   -webkit-appearance: textfield;
 }
 
-/* rtl:raw:
+/* r?:raw:
 [type="tel"],
 [type="url"],
 [type="email"],

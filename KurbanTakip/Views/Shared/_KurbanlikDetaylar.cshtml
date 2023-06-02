@@ -19,7 +19,7 @@
             <tr>
                 <td>@item.Ad</td>
                 <td class="hisseAdet">@Model.Hissecarikarts.Where(c=>c.StokId == item.Id).ToList().Count() / @item.HisseAdet</td>
-                <td>@item.HisseFiyat.ToString("0.##") TL</td>
+                <td>@item.HisseFiyat.ToString("0.##") tL</td>
                 <td>@item.Kilo.ToString("0.##") KG</td>
                 <td>@item.Yas</td>
                 <td>@item.KupeNo</td>
@@ -39,7 +39,7 @@
             event.preventDefault(); // Formun submit işlemini engelle
             Swal.fire({
                 icon: 'error',
-                title: 'Hata',
+                Title: 'Hata',
                 text: 'Bu kurban için daha fazla hisse alınamaz',
                 confirmButtonText: 'Tamam'
             });

@@ -1,4 +1,4 @@
-// Theme mixin
+﻿// Theme mixin
 // *******************************************************************************
 
 @mixin template-common-theme($background, $color: null) {
@@ -16,7 +16,7 @@
 
   @include template-table-variant('primary', shift-color($background, $table-bg-scale));
   @include template-button-variant('.btn-primary', $background, $color);
-  @include template-button-outline-variant('.btn-outline-primary', $background, $color);
+  @include template-button-outLine-variant('.btn-outLine-primary', $background, $color);
   @include template-dropdown-theme(rgba($background, 0.08), $background);
   @include template-nav-theme($background, $color);
   @include template-form-control-theme($background);
@@ -33,8 +33,8 @@
   @include template-float-label-theme($primary-color);
   @include template-svg-color($primary-color);
 
-  html:not([dir='rtl']) .border-primary,
-  html[dir='rtl'] .border-primary {
+  html:not([dir='rtL']) .border-primary,
+  html[dir='rtL'] .border-primary {
     border-color: $background !important;
   }
   a {

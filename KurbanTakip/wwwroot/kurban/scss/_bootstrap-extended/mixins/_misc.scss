@@ -1,4 +1,4 @@
-// * Light/Dark layout
+﻿// * Light/Dark layout
 // *******************************************************************************
 @mixin light-layout-only() {
   @if $dark-style {
@@ -10,12 +10,12 @@
   }
 }
 
-// * RTL/LTR
+// * RtL/LTR
 // *******************************************************************************
 
 @mixin ltr-only() {
-  @if $rtl-support {
-    html:not([dir='rtl']) {
+  @if $rtL-support {
+    html:not([dir='rtL']) {
       @content;
     }
   } @else {
@@ -24,8 +24,8 @@
 }
 
 @mixin ltr-style() {
-  @if $rtl-support {
-    html:not([dir='rtl']) & {
+  @if $rtL-support {
+    html:not([dir='rtL']) & {
       @content;
     }
   } @else {
