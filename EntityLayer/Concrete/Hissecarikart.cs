@@ -17,6 +17,7 @@ namespace EntityLayer.Concrete
         public DateTime Tarih { get; set; }
         public decimal HisseTutar { get; set; }
         public bool VekaletAlindiMi { get; set; }
+        public bool EtTeslimEdildiMi { get; set; }
         public int CariKartId { get; set; }
         public int StokId { get; set; }
 

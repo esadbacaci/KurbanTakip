@@ -5,45 +5,53 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using KurbanTakip.Models;
 
 namespace KurbanTakip.Controllers
 {
-    [Authorize]
-    public class GirisController : Controller
-    {
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Index()
-        {
-            return View();
-        }
+	[Authorize]
+	public class GirisController : Controller
+	{
+		private readonly SignInManager<AppUser> _signInManager;
 
-        [AllowAnonymous]
-        public async Task<IActionResult> Index(Admin p)
+		public GirisController(SignInManager<AppUser> signInManager)
+		{
+			_signInManager = signInManager;
+		}
+
+		[HttpGet]
+		[AllowAnonymous]
+		public IActionResult Index()
+		{
+			return View();
+		}
+		[HttpPost]
+		[AllowAnonymous]
+		public async Task<IActionResult> Index(UserSignInViewModel p)
+		{
+			if (ModelState.IsValid)
+			{
+				//cookie hatırla ve 5 kez yanlışta ban
+				var result = await _signInManager.PasswordSignInAsync(p.username, p.password, true, false);
+				if (result.Succeeded)
+				{
+					return RedirectToAction("Index", "Home");
+				}
+				else
+				{
+					ModelState.AddModelError(string.Empty, "Geçersiz kullanıcı adı veya şifre."); // Hata mesajını ekle
+					return View(p); // Hatalı girişle birlikte giriş sayfasını tekrar yükle
+				}
+			}
+			return View();
+
+		}
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+        public async Task<IActionResult> LogOut()
         {
-            Context c = new Context();
-            var datavalue = c.Admins.FirstOrDefault(x => x.AdminName == p.AdminName && x.AdminPassword == p.AdminPassword);
-            if (datavalue != null)
-            {
-                var claims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name,p.AdminName)
-                };
-                var useridentity = new ClaimsIdentity(claims, "a");
-                ClaimsPrincipal principal = new ClaimsPrincipal(useridentity);
-                await HttpContext.SignInAsync(principal);
-                return RedirectToAction("Index", "Home");
-            }
-            else
-            {
-                return View();
-            }
-        }
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Logout()
-        {
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Giris");
         }
 

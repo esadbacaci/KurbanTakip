@@ -20,17 +20,17 @@ namespace BusinessLayer.Concrete
 
 		public List<Admin> GetList()
 		{
-			throw new NotImplementedException();
+			return _adminDal.GetListAll();
 		}
 
 		public void TAdd(Admin t)
 		{
-			throw new NotImplementedException();
+			_adminDal.Insert(t);
 		}
 
 		public void TDelete(Admin t)
 		{
-			throw new NotImplementedException();
+			_adminDal.Delete(t);
 		}
 
 		public Admin TGetById(int id)

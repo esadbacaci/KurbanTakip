@@ -27,15 +27,15 @@
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-fullname">Hisse Fiyat</label>
-						<input value="@Model.HisseFiyat" name="HisseFiyat" type="text" class="form-control" id="basic-default-fullname" required />
+						<input value="@Model.HisseFiyat.ToString("0.##")" name="HisseFiyat" type="text" class="form-control" id="basic-default-fullname" required />
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-fullname">Kilo</label>
-						<input value="@Model.Kilo" name="Kilo" type="text" class="form-control" id="basic-default-fullname" required />
+						<input value="@Model.Kilo.ToString("0.##")" name="Kilo" type="text" class="form-control" id="basic-default-fullname" required />
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-company">Yaş</label>
-						<input value="@Model.Yas" name="Yas" type="number" class="form-control" id="basic-default-company" required />
+						<input value="@Model.Yas" name="Yas" type="text" class="form-control" id="basic-default-company" required />
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-company">Küpe No</label>

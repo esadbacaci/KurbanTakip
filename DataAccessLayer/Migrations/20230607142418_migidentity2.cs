@@ -5,9 +5,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class migadmin : Migration
+    public partial class migidentity2 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
+        {
+            migrationBuilder.DropTable(
+                name: "Admins");
+        }
+
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
                 name: "Admins",
@@ -18,6 +24,8 @@ namespace DataAccessLayer.Migrations
                     AdminName = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AdminPassword = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    Role = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -25,12 +33,6 @@ namespace DataAccessLayer.Migrations
                     table.PrimaryKey("PK_Admins", x => x.AdminID);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropTable(
-                name: "Admins");
         }
     }
 }

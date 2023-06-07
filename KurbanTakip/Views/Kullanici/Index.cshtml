@@ -1,0 +1,79 @@
+﻿@using EntityLayer.Concrete
+@using Microsoft.AspNetCore.Identity;
+@model List<AppUser>
+@inject UserManager<AppUser> UserManager
+
+@{
+	ViewData["Title"] = "Index";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="card">
+	<h5 class="card-header">Kullanıcılar Tablosu</h5>
+	<div class="col-lg-4">
+		<a href="/Kullanici/KullaniciEkle" class="btn btn-dark">Kullanıcı Ekle</a>
+		<a href="/Kullanici/AdminEkle" class="btn btn-dark">Admin Ekle</a>
+	</div>
+
+
+	<br />
+	<div class="table-responsive text-nowrap">
+		<table class="table">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Kullanıcı Adı</th>
+				</tr>
+			</thead>
+			<tbody class="table-border-bottom-0">
+				@foreach (var user in Model)
+				{
+					<tr>
+						<td>@user.Id</td>
+						<td>@user.UserName</td>
+						<td>
+							@if (await UserManager.IsInRoleAsync(user, "User"))
+							{
+								<span>Kullanıcı</span>
+							}
+							else
+							{
+								@foreach (var role in await UserManager.GetRolesAsync(user))
+								{
+									<span>@role</span>
+								}
+							}
+						</td>
+						<td><a href="#" class="btn btn-danger" onclick="confirmDelete('@user.Id')">Sil</a></td>
+
+					</tr>
+				}
+
+			</tbody>
+		</table>
+	</div>
+</div>
+<script>
+	function confirmDelete(itemId) {
+		swal({
+			title: "Emin misiniz?",
+			text: "Bu işlemi geri alamazsınız!",
+			icon: "warning",
+			buttons: ["İptal", "Sil"],
+			dangerMode: true,
+		})
+			.then((confirmed) => {
+				if (confirmed) {
+					swal({
+						title: "Başarıyla Silindi !",
+						icon: "success",
+						button: "Tamam",
+					}).then(() => {
+						window.location.href = "/Kullanici/KullaniciSil/" + itemId;
+					});
+				} else {
+					swal("İşlem iptal edildi.");
+
+				}
+			});
+	}
+</script>

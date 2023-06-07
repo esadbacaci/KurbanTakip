@@ -5,6 +5,7 @@ using EntityLayer.Concrete;
 using KurbanTakip.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace KurbanTakip.Controllers
 {
@@ -17,6 +18,7 @@ namespace KurbanTakip.Controllers
         CariIslemManager cim=new CariIslemManager(new EfCariIslemRepository());
         
         Context c=new Context();
+
         public IActionResult KurbanlikListe()
         {
 			var stoks = sm.GetList();
@@ -54,7 +56,10 @@ namespace KurbanTakip.Controllers
         [HttpPost]
         public IActionResult KurbanlikEkle(Stok p)
         {
-            sm.TAdd(p);
+			//int maxSiraNo = c.Stoks.Max(stok => stok.SiraNo);
+			//p.SiraNo = maxSiraNo + 1;
+      
+			sm.TAdd(p);
             return RedirectToAction("KurbanlikListe","Kurbanlik");
         }
 		public IActionResult KurbanlikSil(int id)
@@ -69,24 +74,51 @@ namespace KurbanTakip.Controllers
 			var carivalue = sm.TGetById(id);
 			return View(carivalue);
 		}
+		//[HttpPost]
+		//public IActionResult KurbanlikGuncelle(Stok p, int Id)
+		//{
+		//	var stokToUpdate = sm.TGetById(Id);
+
+		//	if (stokToUpdate != null)
+		//	{
+		//		stokToUpdate.Ad = p.Ad;
+		//		stokToUpdate.Kod = p.Kod;
+		//		stokToUpdate.HisseAdet = p.HisseAdet;
+		//		stokToUpdate.HisseFiyat = p.HisseFiyat;
+		//		stokToUpdate.Kilo = p.Kilo;
+		//		stokToUpdate.Yas = p.Yas;
+		//		stokToUpdate.KupeNo = p.KupeNo;
+		//		stokToUpdate.Cins=p.Cins;
+
+		//		sm.TUpdate(stokToUpdate);
+		//	}
+		//	return RedirectToAction("KurbanlikListe", "Kurbanlik");
+		//      }   
 		[HttpPost]
 		public IActionResult KurbanlikGuncelle(Stok p, int Id)
 		{
-			var stokToUpdate = sm.TGetById(Id);
+				var stokToUpdate = c.Stoks.FirstOrDefault(s => s.Id == Id);
+				var hisseCarikart = c.Hissecarikarts.FirstOrDefault(h => h.StokId == Id);
 
-			if (stokToUpdate != null)
-			{
-				stokToUpdate.Ad = p.Ad;
-				stokToUpdate.Kod = p.Kod;
-				stokToUpdate.HisseAdet = p.HisseAdet;
-				stokToUpdate.HisseFiyat = p.HisseFiyat;
-				stokToUpdate.Kilo = p.Kilo;
-				stokToUpdate.Yas = p.Yas;
-				stokToUpdate.KupeNo = p.KupeNo;
-				stokToUpdate.Cins=p.Cins;
+				if (stokToUpdate != null)
+				{
+					stokToUpdate.Ad = p.Ad;
+					stokToUpdate.Kod = p.Kod;
+					stokToUpdate.HisseAdet = p.HisseAdet;
+					stokToUpdate.HisseFiyat = p.HisseFiyat;
+					stokToUpdate.Kilo = p.Kilo;
+					stokToUpdate.Yas = p.Yas;
+					stokToUpdate.KupeNo = p.KupeNo;
+					stokToUpdate.Cins = p.Cins;
 
-				sm.TUpdate(stokToUpdate);
-			}
+					if (hisseCarikart != null)
+					{
+						hisseCarikart.HisseTutar = p.HisseFiyat; // HisseTutar alanını güncelle
+					}
+
+					c.SaveChanges(); // Güncelleme işlemlerini kaydet
+				}
+
 			return RedirectToAction("KurbanlikListe", "Kurbanlik");
 		}
 		[HttpGet]
@@ -110,9 +142,62 @@ namespace KurbanTakip.Controllers
         {
 			var values = hcm.TGetById(id);
 			hcm.TDelete(values);
-			return RedirectToAction("KurbanlikListe", "Kurbanlik");
+			return RedirectToAction("KurbanlikDetay", "Kurbanlik", new { id = values.StokId });
 
 		}
+		public IActionResult EtTeslimEt(int id, bool toggle = false)
+		{
+			var hissecarikart = c.Hissecarikarts.FirstOrDefault(hc => hc.Id == id);
 
-    }
+			if (hissecarikart == null)
+			{
+				// Hissecarikart bulunamadı
+				return NotFound();
+			}
+
+			// Toggle değerine göre "EtTeslimEdildiMi" değerini güncelleme
+			hissecarikart.EtTeslimEdildiMi = toggle ? !hissecarikart.EtTeslimEdildiMi : true;
+
+			try
+			{
+				// Değişikliği veritabanına kaydetme
+				c.SaveChanges();
+
+				return Json(new { success = true, message = toggle ? "Teslim Başarılı !" : "Et Teslim Durumu Geri Alındı!" });
+			}
+			catch (Exception ex)
+			{
+				// Hata durumunda
+				return Json(new { success = false, message = "Bir hata oluştu: " + ex.Message });
+			}
+		}
+		[HttpPost]
+		public IActionResult VekaletDegistir(int id, bool toggle = false)
+		{
+			var hissecarikart = c.Hissecarikarts.FirstOrDefault(hc => hc.Id == id);
+
+			if (hissecarikart == null)
+			{
+				// Hissecarikart bulunamadı
+				return NotFound();
+			}
+
+			// Toggle değerine göre "VekaletAlindiMi" değerini güncelleme
+			hissecarikart.VekaletAlindiMi = toggle ? !hissecarikart.VekaletAlindiMi : true;
+
+			try
+			{
+				// Değişikliği veritabanına kaydetme
+				c.SaveChanges();
+
+				return Json(new { success = true, message = toggle ? "Vekalet Değiştirildi!" : "Vekalet Alındı!" });
+			}
+			catch (Exception ex)
+			{
+				// Hata durumunda
+				return Json(new { success = false, message = "Bir hata oluştu: " + ex.Message });
+			}
+		}
+
+	}
 }

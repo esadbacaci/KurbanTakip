@@ -1,6 +1,8 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +42,6 @@ namespace BusinessLayer.Concrete
 		public List<Stok> GetKurbanlikById(int id)
 		{
 			return _stokDal.GetListAll(x => x.Id == id);
-
 		}
 		public void TUpdate(Stok t)
         {

@@ -1,4 +1,5 @@
-﻿@{
+﻿@model UserSignInViewModel
+@{
 	Layout = null;
 }
 <!DOCTYPE html>
@@ -56,11 +57,13 @@
 			<div class="authentication-inner">
 				<!-- Register -->
 				<div class="card">
+					<img style="width:50%;float:right;margin-top:3%" src="~/image/bilsoft_logo_1.png" alt="Logo" class="logo-image">
 					<div class="card-body">
 						<!-- Logo -->
 						<div class="app-brand justify-content-center">
-									<img style="width:40%" src="~/kurban/assets/img/cowlogo.png"/>
-								<span class="app-brand-text demo text-body fw-bolder">Kurban Takip</span>
+							<img style="width:40%" src="~/kurban/assets/img/cowlogo.png" />
+							<span class="app-brand-text demo text-body fw-bolder">Kurban Takip</span>
+
 						</div>
 						<!-- /Logo -->
 						<h4 class="mb-2">Hoşgeldiniz! 👋</h4>
@@ -68,10 +71,9 @@
 						<form id="formAuthentication" class="mb-3" asp-controller="Giris" asp-action="Index" method="POST">
 							<div class="mb-3">
 								<label for="email" class="form-label">Kullanıcı Adı</label>
-								<input type="text"
+								<input asp-for="@Model.username" type="text"
 									   class="form-control"
 									   id="email"
-									   name="AdminName"
 									   placeholder="Kullanıcı adınızı giriniz"
 									   autofocus
 									   required />
@@ -81,17 +83,16 @@
 									<label class="form-label" for="password">Şifre</label>
 								</div>
 								<div class="input-group input-group-merge">
-									<input type="password"
+									<input asp-for="@Model.password" type="password"
 										   id="password"
 										   class="form-control"
-										   name="AdminPassword"
 										   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
 										   aria-describedby="password"
 										   required />
 									<span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
 								</div>
 							</div>
-
+							<div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
 							<div class="mb-3">
 								<button class="btn btn-primary d-grid w-100" type="submit">Giriş Yap</button>
 							</div>

@@ -15,10 +15,13 @@
 						<th>Hisse No</th>
 						<th>Ad Soyad</th>
 						<th>Telefon</th>
-						<th>Düşen Hisse</th>
+						<th>Kilo</th>
+						<th>Vekalet</th>
+						<th>Et Teslim</th>
 						<th>Borç</th>
 						<th>Ödenen</th>
-						<th></th>
+						<th>Bakiye</th>
+						<th>İşlem</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -26,15 +29,60 @@
 					{
 						var cariKart = Model.Carikarts.FirstOrDefault(c => c.Id == item.CariKartId);
 						var stok = Model.Stoks.FirstOrDefault(s => s.Id == item.StokId);
-						var cariislem = Model.Cariislems.FirstOrDefault(x => x.HisseCariKartId == item.Id);
+						var cariislem = new Cariislem { Borc = Model.Cariislems.Where(x => x.HisseCariKartId == item.Id).Sum(x => x.Borc), Alacak = Model.Cariislems.Where(x => x.HisseCariKartId == item.Id).Sum(x => x.Alacak) }; @*Model.Cariislems.FirstOrDefault(x => x.HisseCariKartId == item.Id);
+					*@						var vekalet = Model.Hissecarikarts.FirstOrDefault(x => x.CariKartId == item.Id);
 						<tr>
 							<td>@item.Id</td>
 							<td>@(cariKart != null ? cariKart.AdSoyad : "")</td>
 							<td>@(cariKart != null ? cariKart.Telefon : "")</td>
-							<td>@(stok != null ? stok.Kilo.ToString("0.##") : "") KG</td>
-							<td><span class="badge bg-label-success me-1">@(cariislem != null ? cariislem.Borc.ToString("0.##") : "") ₺</span></td>
-							<td><span class="badge bg-label-danger me-1">@(cariislem != null ? cariislem.Alacak.ToString("0.##") : "") ₺</span></td>
-							<td><a href="#" class="btn btn-danger" onclick="confirmDelete('@item.Id')">Sil</a></td>
+							@{
+								var kişiSayısı = Model.Hissecarikarts.Count();
+								decimal toplamKilo = 0;
+								if (kişiSayısı > 0)
+								{
+									toplamKilo = Model.Hissecarikarts.Sum(item => Model.Stoks.FirstOrDefault(s => s.Id == item.StokId)?.Kilo ?? 0);
+									toplamKilo /= kişiSayısı;
+								}
+							}
+							<td>@(stok != null ? (stok.Kilo / (decimal)kişiSayısı).ToString("0.##") : "") KG</td>
+							<td>
+								@if (item.VekaletAlindiMi == true)
+								{
+									<span class="badge bg-label-primary">Alındı</span>
+								}
+								else
+								{
+									<span class="badge bg-label-dark">Alınmadı</span>
+
+								}
+							</td>
+							<td>
+								@if (item.EtTeslimEdildiMi == true)
+								{
+									<span class="badge bg-label-success">Edildi</span>
+								}
+								else
+								{
+									<span class="badge bg-label-danger">Edilmedi</span>
+								}
+
+							</td>
+							<td><span style="font-size:medium" class="badge bg-success me-1">@(cariislem != null ? cariislem.Borc.ToString("0.##") : "") ₺</span></td>
+							<td><span style="font-size:medium" class="badge bg-danger me-1">@(cariislem != null ? cariislem.Alacak.ToString("0.##") : "") ₺</span></td>
+							<td><span style="font-size:medium" class="badge bg-primary me-1">@(cariislem != null ? (cariislem.Borc - cariislem.Alacak).ToString("0.##") : "") ₺</span></td>
+							<td>
+								<div class="dropdown">
+									<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+										<i class="bx bx-dots-vertical-rounded"></i>
+									</button>
+									<div class="dropdown-menu">
+										<a href="#" class="btn btn-danger" onclick="confirmDelete('@item.Id')">Sil</a>
+										<a href="#" class="btn btn-dark" onclick="confirmEtTeslimEt('@item.Id')">Teslim</a>
+										<a href="#" class="btn btn-primary" onclick="confirmVekaletDegistir('@item.Id')">Vekalet</a>
+									</div>
+								</div>
+							</td>
+
 						</tr>
 					}
 				</tbody>
@@ -53,9 +101,105 @@
 		})
 			.then((confirmed) => {
 				if (confirmed) {
-					window.location.href = "/Kurbanlik/HissedarSil/" + itemId;
+					swal({
+						title: "Başarıyla Silindi !",
+						icon: "success",
+						button: "Tamam",
+					}).then(() => {
+						window.location.href = "/Kurbanlik/HissedarSil/" + itemId;
+					});
+				} else {
+					swal("İşlem iptal edildi.");
 				}
 			});
 	}
-</script>
 
+</script>
+<script>
+	function confirmEtTeslimEt(itemId) {
+		var etTeslimEdildiMi = $('#etTeslimDurumu-' + itemId).val();
+
+		swal({
+			title: "Emin misiniz?",
+			text: "Et Teslim Durumu Değişecektir!",
+			buttons: ["İptal", "Teslim Et"],
+		})
+			.then((confirmed) => {
+				if (confirmed) {
+					var toggle = (etTeslimEdildiMi === "True") ? false : true;
+					performEtTeslimEt(itemId, toggle);
+				} else {
+					swal("İşlem iptal edildi.");
+				}
+			});
+	}
+
+	function performEtTeslimEt(itemId, toggle) {
+		// AJAX isteğiyle et teslim etme veya geri alma işlemini gerçekleştirin
+		$.ajax({
+			url: "/Kurbanlik/EtTeslimEt",  // Controller ve Action adresini belirtin
+			type: "POST",
+			data: { id: itemId, toggle: toggle },
+			success: function (response) {
+				if (response.success) {
+					swal({
+						title: response.message,
+						icon: "success",
+						button: "Tamam",
+					}).then(() => {
+						window.location.reload();  // Sayfayı yeniden yükleyin
+					});
+				} else {
+					swal("Hata oluştu, işlem gerçekleştirilemedi!", "", "error");
+				}
+			},
+			error: function (error) {
+				swal("Hata oluştu, işlem gerçekleştirilemedi!", "", "error");
+			}
+		});
+	}
+</script>
+<script>
+	function confirmVekaletDegistir(itemId) {
+		var vekaletAlindiMi = $('#vekaletDurumu-' + itemId).val();
+
+		swal({
+			title: "Emin misiniz?",
+			text: "Vekalet Durumu Değişecektir!",
+			buttons: ["İptal", "Vekalet Değiştir"],
+		})
+			.then((confirmed) => {
+				if (confirmed) {
+					var toggle = (vekaletAlindiMi === "True") ? false : true;
+					performVekaletDegistir(itemId, toggle);
+				} else {
+					swal("İşlem iptal edildi.");
+				}
+			});
+	}
+
+	function performVekaletDegistir(itemId, toggle) {
+		// AJAX isteğiyle vekalet değiştirme işlemini gerçekleştirin
+		$.ajax({
+			url: "/Kurbanlik/VekaletDegistir",  // Controller ve Action adresini belirtin
+			type: "POST",
+			data: { id: itemId, toggle: toggle },
+			success: function (response) {
+				if (response.success) {
+					swal({
+						title: response.message,
+						icon: "success",
+						button: "Tamam",
+					}).then(() => {
+						window.location.reload();  // Sayfayı yeniden yükleyin
+					});
+				} else {
+					swal("Hata oluştu, işlem gerçekleştirilemedi!", "", "error");
+				}
+			},
+			error: function (error) {
+				swal("Hata oluştu, işlem gerçekleştirilemedi!", "", "error");
+			}
+		});
+	}
+</script>

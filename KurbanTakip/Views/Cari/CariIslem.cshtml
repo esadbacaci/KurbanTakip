@@ -2,9 +2,8 @@
 @model CariStokModel
 @{
 	ViewData["Title"] = "CariIslem";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+	Layout = "~/Views/Shared/_Layout.cshtml"; 
 }
-
 <div class="col-lg-12 col-md-6">
 	<div class="mt-3">
 		<!-- Button trigger modal -->
@@ -14,7 +13,7 @@
 				data-bs-target="#tahsilatYap">
 			Tahsilat Yap
 		</button>
-		<button type="button"
+	@*	<button type="button"
 				class="btn btn-primary"
 				data-bs-toggle="modal"
 				data-bs-target="#odemeYap">
@@ -31,7 +30,7 @@
 				data-bs-toggle="modal"
 				data-bs-target="#alacaklandir">
 			Alacaklandır
-		</button>
+		</button>*@
 	</div>
 
 </div>
@@ -83,6 +82,15 @@
 						ViewBag.alacakt = alacakToplam;
 						ViewBag.borct = borcToplam;
 						ViewBag.bakiye = bakiye;
+
+						var hissecarikartIds = Model.Stoks.Select(s => s.Id).ToList();
+						var query = (from c in Model.Cariislems
+										where hissecarikartIds.Contains(c.HisseCariKartId)
+										group c by 1 into g
+										select new
+										{
+											bakiyehissedar = g.Sum(item => item.Borc) - g.Sum(item => item.Alacak)
+										}).FirstOrDefault();
 					}
 
 				</tbody>
@@ -92,7 +100,7 @@
 </div>
 
 <div style="margin-top:2%" class="row first">
-	<div class="col-4 mb-4">
+	<div style="margin-bottom:10px" class="col-lg-4 col-md-4">
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column">
@@ -107,7 +115,7 @@
 		</div>
 	</div>
 
-	<div class="col-4 mb-4">
+	<div style="margin-bottom:10px" class="col-lg-4 col-md-4">
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column">
@@ -121,7 +129,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-4 mb-4">
+	<div style="margin-bottom:10px" class="col-lg-4 col-md-4">
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column">
@@ -193,6 +201,7 @@
 			</div>
 		</div>
 	</div>
+	
 </form>
 
 <form asp-controller="Cari" asp-action="CariIslemOdeme" method="post">
@@ -263,13 +272,9 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col mb-3">
+						<div class="col mb-6">
 							<label for="nameBasic" class="form-label">Ücret</label>
 							<input type="number" id="nameBasic" name="Borc" class="form-control" placeholder="Ücret Giriniz" required />
-						</div>
-						<div class="col mb-3">
-							<label for="nameBasic2" class="form-label">Açıklama</label>
-							<input type="text" id="nameBasic2" name="Aciklama" class="form-control" placeholder="Açıklama Giriniz" />
 						</div>
 					</div>
 					<div class="row g-2 mt-3">
@@ -320,13 +325,9 @@
 				</div>
 				<div class="modal-body">
 					<div class="row">
-						<div class="col mb-3">
+						<div class="col mb-6">
 							<label for="nameBasic" class="form-label">Ücret</label>
 							<input type="number" id="nameBasic" name="Alacak" class="form-control" placeholder="Ücret Giriniz" required />
-						</div>
-						<div class="col mb-3">
-							<label for="nameBasic2" class="form-label">Açıklama</label>
-							<input type="text" id="nameBasic2" name="Aciklama" class="form-control" placeholder="Açıklama Giriniz" />
 						</div>
 					</div>
 					<div class="row g-2 mt-3">
@@ -365,6 +366,7 @@
 		</div>
 	</div>
 </form>
+
 <script>
 	$(document).ready(function () {
 		$(".first").insertBefore(".second");
@@ -381,8 +383,17 @@
 		})
 			.then((confirmed) => {
 				if (confirmed) {
-					window.location.href = "/Cari/CariIslemSil/" + itemId;
+					swal({
+						title: "Başarıyla Silindi !",
+						icon: "success",
+						button: "Tamam",
+					}).then(() => {
+						window.location.href = "/Cari/CariIslemSil/" + itemId;
+					});
+				} else {
+					swal("İşlem iptal edildi.");
 				}
 			});
 	}
 </script>
+

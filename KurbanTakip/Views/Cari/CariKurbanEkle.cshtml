@@ -1,96 +1,138 @@
 ﻿@using EntityLayer.Concrete
 @model CariStokModel
 @{
-	ViewData["Title"] = "CariKurbanEkle";
-	Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "CariKurbanEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="row">
-	<div class="col-xl">
-		<div class="card mb-4">
-			<div class="card-header d-flex justify-content-between align-items-center">
-				<h5 class="mb-0">Cari Kurban Seç</h5>
-				<small class="text-muted float-end">Aşağıdan Kurbanlık Seçiniz</small>
-			</div>
-			<div class="card-body">
-				<form asp-controller="Cari" asp-action="CariKurbanEkle" method="post">
-					<table class="table table-sm">
-						<thead>
-							<tr>
-								<th>Ad Soyad</th>
-								<th>Telefon</th>
-								<th>Referans</th>
-								<th>Ülke</th>
-								<th>Şehir</th>
-								<th>İlçe</th>
-								<th>Açıklama</th>
-							</tr>
-						</thead>
-						<tbody class="table-border-bottom-0">
-							@foreach (var item in Model.Carikarts)
-							{
-								<tr>
-									<td>@item.AdSoyad</td>
-									<td>@item.Telefon</td>
-									<td>@item.Referans</td>
-									<td>@item.Ulke</td>
-									<td>@item.Il</td>
-									<td>@item.Ilce</td>
-									<td>@item.Aciklama</td>
-									<input type="hidden" name="CariKartId" value="@item.Id" />
-									<input type="hidden" name="HisseCariKartId" value="@item.Id" />
-								</tr>
-							}
-						</tbody>
-					</table>
-					<br />
-					<div class="row">
-						<div class="col-md-4 mb-3">
-							<label for="defaultSelect" class="form-label"><strong>Kurbanlık Seç</strong></label>
-							<select name="StokId" id="kurbanlik" class="form-select">
-								<option value="" selected disabled>Kurbanlık Seç</option>
-								@foreach (var stok in Model.Stoks) // stoklar, veritabanından çekilen stok verilerini içeren bir liste olarak düşünülmüştür
-								{
-									<option value="@stok.Id">@stok.KupeNo</option>
-								}
-							</select>
-						</div>
-						<br /><br />
-						<div class="col-md-2 mb-3">
-							<div class="form-check form-switch mb-2">
-								<br />
-								<input name="VekaletAlindiMi" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
-								<label class="form-check-label" for="flexSwitchCheckDefault">Vekalet Alıncak Mı</label>
-							</div>
-						</div>
-						<div class="col-md-6 mb-3">
-							<div id="kurbanlikDetaylar"></div>
-						</div>
-					</div>
-					<button type="submit" class="btn btn-primary carikaydet">Kaydet</button>
-				</form>
-			</div>
-		</div>
-	</div>
+    <div class="col-xl">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Müşteri Kurban Seç</h5>
+                <small class="text-muted float-end">Aşağıdan Kurbanlık Seçiniz</small>
+            </div>
+            <div class="card-body">
+                <form asp-controller="Cari" asp-action="CariKurbanEkle" method="post">
+                    <div class="table-responsive">
+                        <!-- Tabloyu saran bir div ekleyin -->
+                        <table class="table table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Ad Soyad</th>
+                                    <th>Telefon</th>
+                                    <th>Referans</th>
+                                    <th>Açıklama</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                                @foreach (var item in Model.Carikarts)
+                                {
+                                    <tr>
+                                        <td>@item.AdSoyad</td>
+                                        <td>@item.Telefon</td>
+                                        <td>@item.Referans</td>
+                                        <td>@item.Aciklama</td>
+                                        <input type="hidden" name="CariKartId" value="@item.Id" />
+                                        <input type="hidden" name="HisseCariKartId" value="@item.Id" />
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-4 mb-3">
+                            <label for="defaultSelect" class="form-label"><strong>Kurbanlık Seç</strong></label>
+                            <select name="StokId" id="kurbanlik" class="form-select">
+                                <option value="" selected disabled>Kurbanlık Seç</option>
+                                @foreach (var stok in Model.Stoks) // stoklar, veritabanından çekilen stok verilerini içeren bir liste olarak düşünülmüştür
+                                {
+                                    <option value="@stok.Id">@stok.KupeNo</option>
+                                }
+                            </select>
+                        </div>
+                        <br /><br />
+                        <div class="col-md-2 mb-3">
+                            <div class="form-check form-switch mb-2">
+                                <br />
+                                <input name="VekaletAlindiMi" class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" />
+                                <label class="form-check-label" for="flexSwitchCheckDefault">Vekalet Alıncak Mı</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div id="kurbanlikDetaylar"></div>
+                        </div>
+                    </div>
+                    <button id="kaydetButton" type="submit" class="btn btn-primary carikaydet">Kaydet</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
-	$(document).ready(function () {
-		$('#kurbanlik').change(function () {
-			var selectedStokId = $(this).val();
+    $(document).ready(function () {
+        var isButtonClicked = false; // Flag değişkeni
 
-			// AJAX isteği göndererek seçilen kurbanlığın bilgilerini alın
-			$.ajax({
-				url: '/Kurbanlik/KurbanlikListeId', // Kurbanlık detaylarını almak için bir eylem oluşturmanız gerekecek
-				type: 'GET',
-				data: { stokId: selectedStokId },
-				success: function (result) {
-					// Kurbanlık detaylarını alınan sonuçla güncelleyin
-					$('#kurbanlikDetaylar').html(result);
-				},
-				error: function () {
-					alert('Bir hata oluştu. Kurbanlık detayları alınamadı.');
-				}
-			});
-		});
-	});
+        $('#kaydetButton').prop('disabled', true); // Sayfa yüklendiğinde "Kaydet" butonunu devre dışı bırakın
+
+        $('#kurbanlik').change(function () {
+            var selectedStokId = $(this).val();
+
+            // AJAX isteği göndererek seçilen kurbanlığın bilgilerini alın
+            $.ajax({
+                url: '/Kurbanlik/KurbanlikListeId',
+                type: 'GET',
+                data: {
+                    stokId: selectedStokId
+                },
+                beforeSend: function () {
+                    // İstek gönderilirken, "Kaydet" butonunu devre dışı bırakın
+                    $('#kaydetButton').prop('disabled', true);
+                },
+                success: function (result) {
+                    // Kurbanlık detaylarını alınan sonuçla güncelleyin
+                    $('#kurbanlikDetaylar').html(result);
+
+                    // Partial view yüklendiyse ve daha önce tıklanmamışsa, kaydet butonunu etkinleştirin
+                    if (!isButtonClicked) {
+                        $('#kaydetButton').prop('disabled', false);
+                    }
+                },
+                error: function () {
+                    alert('Bir hata oluştu. Kurbanlık detayları alınamadı.');
+                    // Hata durumunda kaydet butonunu devre dışı bırakın
+                    $('#kaydetButton').prop('disabled', true);
+                }
+            });
+        });
+
+        $('#kaydetButton').click(function (event) {
+            var rows = $(".hisseAdet"); // Tüm hisseAdet sütunlarını seç
+
+            for (var i = 0; i < rows.length; i++) {
+                var row = rows.eq(i);
+                var hisseAdet = parseInt(row.text().split("/")[0]);
+                var maksimumHisseAdet = parseInt(row.text().split("/")[1]);
+
+                if (hisseAdet >= maksimumHisseAdet) {
+                    event.preventDefault(); // Formun submit işlemini engelle
+                    swal({
+                        icon: 'error',
+                        title: 'Hata',
+                        text: 'Bu kurban için daha fazla hisse alınamaz',
+                        confirmButtonText: 'Tamam'
+                    });
+                    return false;
+                }
+            }
+
+            if (!isButtonClicked) {
+                isButtonClicked = true; // Flag'i true olarak ayarla
+                $(this).prop('disabled', true); // Butonu devre dışı bırak
+                $('form').submit(); // Formu gönder
+            }
+        });
+    });
+
 </script>

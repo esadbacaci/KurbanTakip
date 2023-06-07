@@ -4,7 +4,7 @@
 
 namespace DataAccessLayer.Migrations
 {
-    public partial class migmehmetabi : Migration
+    public partial class migidentity3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

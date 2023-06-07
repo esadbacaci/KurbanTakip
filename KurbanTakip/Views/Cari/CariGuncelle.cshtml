@@ -6,8 +6,8 @@
 	<div class="col-xl">
 		<div class="card mb-4">
 			<div class="card-header d-flex justify-content-between align-items-center">
-				<h5 class="mb-0">Cari Güncelle</h5>
-				<small class="text-muted float-end">Cari Detayları</small>
+				<h5 class="mb-0">Müşteri Güncelle</h5>
+				<small class="text-muted float-end">Müşteri Detayları</small>
 			</div>
 			<div class="card-body">
 				<form method="post" asp-controller="Cari" asp-action="CariGuncelle">
@@ -22,18 +22,6 @@
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-fullname">Referans</label>
 						<input value="@Model.Referans" name="Referans" type="text" class="form-control" id="basic-default-fullname" required />
-					</div>
-					<div class="mb-3">
-						<label class="form-label" for="basic-default-fullname">Ülke</label>
-						<input value="@Model.Ulke"  name="Ulke" type="text" class="form-control" id="basic-default-fullname" required />
-					</div>
-					<div class="mb-3">
-						<label class="form-label" for="basic-default-company">Şehir</label>
-						<input value="@Model.Il" name="Il" type="text" class="form-control" id="basic-default-company" required />
-					</div>
-					<div class="mb-3">
-						<label class="form-label" for="basic-default-company">İlçe</label>
-						<input value="@Model.Ilce" name="Ilce" type="text" class="form-control" id="basic-default-company" required />
 					</div>
 					<div class="mb-3">
 						<label class="form-label" for="basic-default-message">Açıklama</label>

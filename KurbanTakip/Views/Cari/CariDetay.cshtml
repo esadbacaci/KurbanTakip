@@ -49,15 +49,38 @@
 									<text>Vekalet Yok</text>
 								}
 							</td>
-							<td><a href="/Cari/CariDetaySil/@item.Id" class="btn btn-danger">Sil</a></td>
+							<td><a href="#" class="btn btn-danger" onclick="confirmDelete('@item.Id')">Sil</a></td>
 						</tr>
 					}
 				</tbody>
-				@ViewBag.cariad
+				<h1>
+					@ViewBag.cariad
+				</h1>
 			</table>
 		</div>
 	</div>
 </div>
-
-
-
+<script>
+	function confirmDelete(itemId) {
+		swal({
+			title: "Emin misiniz?",
+			text: "Bu işlemi geri alamazsınız!",
+			icon: "warning",
+			buttons: ["İptal", "Sil"],
+			dangerMode: true,
+		})
+			.then((confirmed) => {
+				if (confirmed) {
+					swal({
+						title: "Başarıyla Silindi !",
+						icon: "success",
+						button: "Tamam",
+					}).then(() => {
+						window.location.href = "/Cari/CariDetaySil/" + itemId;
+					});
+				} else {
+					swal("İşlem iptal edildi.");
+				}
+			});
+	}
+</script>

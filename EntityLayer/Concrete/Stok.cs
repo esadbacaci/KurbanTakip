@@ -14,6 +14,7 @@ namespace EntityLayer.Concrete
         }
 
         public int Id { get; set; }
+        public int SiraNo { get; set; }
         public string Ad { get; set; } = null!;
         public string Kod { get; set; } = null!;
         public int HisseAdet { get; set; }

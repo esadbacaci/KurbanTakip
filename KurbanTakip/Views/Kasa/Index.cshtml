@@ -1,5 +1,5 @@
 ﻿@using EntityLayer.Concrete
-@model List<Kasa>
+@model CariStokModel
 @{
 	ViewData["Title"] = "Index";
 	Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,7 +11,7 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Sıra No</th>
+						<th>No</th>
 						<th>Cari Adı</th>
 						<th>Tarih</th>
 						<th>Tutar</th>
@@ -27,12 +27,26 @@
 						decimal toplamCikisTutari = 0;
 						decimal toplamBakiye = 0;
 					}
-					@foreach (var item in Model)
+					@foreach (var item in Model.Kasas)
 					{
 						<tr>
 							<td>@item.Id</td>
+
+							<td>
+								@{
+									var cariIslem = Model.Cariislems.FirstOrDefault(c => c.Id == item.CariIslemId);
+									if (cariIslem != null)
+									{
+										var cariKart = Model.Carikarts.FirstOrDefault(c => c.Id == cariIslem.CariKartId);
+										if (cariKart != null)
+										{
+											<text>@cariKart.AdSoyad</text>
+										}
+									}
+								}
+							</td>
 							<td>@item.Tarih.ToShortDateString()</td>
-							<td><span class="badge bg-label-primary me-1">@string.Format("{0:0.##} tL", item.Tutar)</span></td>
+							<td><span class="badge bg-label-primary me-1">@string.Format("{0:0.##} ₺", item.Tutar)</span></td>
 							<td>@item.Aciklama</td>
 							<td>
 								@if (item.GirisMi.HasValue)
@@ -69,8 +83,8 @@
 	</div>
 </div>
 
-<div class="row first">
-	<div class="col-4 mb-4">
+<div style="margin-bottom:10px" class="row first">
+	<div style="margin-bottom:10px" class="col-lg-4 col-md-12">
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column">
@@ -84,7 +98,7 @@
 						}
 						else
 						{
-							<h3 class="mb-0 text-danger">Henüz Giriş Yok</h3>
+							<h3 class="mb-0 text-danger">0</h3>
 
 						}
 					</div>
@@ -92,7 +106,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-4 mb-4">
+	<div style="margin-bottom:10px" class="col-lg-4 col-md-4">
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column">
@@ -106,7 +120,7 @@
 						}
 						else
 						{
-							<h3 class="mb-0 text-warning">Henüz Çıkış Yok</h3>
+							<h3 class="mb-0 text-warning">0</h3>
 
 						}
 					</div>
@@ -114,7 +128,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-4 mb-4">
+	<div style="margin-bottom:10px" class="col-lg-4 col-md-4">
 		<div class="card">
 			<div class="card-body">
 				<div class="d-flex flex-column">
@@ -135,18 +149,26 @@
 	});
 </script>
 <script>
-    function confirmDelete(itemId) {
-        swal({
-            title: "Emin misiniz?",
-            text: "Bu işlemi geri alamazsınız!",
-            icon: "warning",
-            buttons: ["İptal", "Sil"],
-            dangerMode: true,
-        })
-        .then((confirmed) => {
-            if (confirmed) {
-                window.location.href = "/Kasa/KasaSil/" + itemId;
-            }
-        });
-    }
+	function confirmDelete(itemId) {
+		swal({
+			title: "Emin misiniz?",
+			text: "Bu işlemi geri alamazsınız!",
+			icon: "warning",
+			buttons: ["İptal", "Sil"],
+			dangerMode: true,
+		})
+			.then((confirmed) => {
+				if (confirmed) {
+					swal({
+						title: "Başarıyla Silindi !",
+						icon: "success",
+						button: "Tamam",
+					}).then(() => {
+						window.location.href = "/Kasa/KasaSil/" + itemId;
+					});
+				} else {
+					swal("İşlem iptal edildi.");
+				}
+			});
+	}
 </script>

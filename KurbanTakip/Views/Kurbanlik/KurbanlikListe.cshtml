@@ -11,7 +11,7 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th>Kurbanlık No</th>
+					<th>Sıra No</th>
 					<th>Ad</th>
 					<th>Hisse Adet</th>
 					<th>Hisse Fiyat</th>
@@ -23,10 +23,10 @@
 				</tr>
 			</thead>
 			<tbody class="table-border-bottom-0">
-				@foreach (var item in Model.Stoks)
+				@foreach (var item in Model.Stoks.OrderBy(x=>x.SiraNo))
 				{
 					<tr>
-						<td>@item.Id</td>
+						<td>@item.SiraNo</td>
 						<td><strong>@item.Ad</strong></td>
 						<td>@Model.Hissecarikarts.Where(c=>c.StokId == item.Id).ToList().Count()/ @item.HisseAdet</td>
 						<td>@item.HisseFiyat.ToString("0.##") ₺</td>
@@ -44,11 +44,18 @@
 						<td>@item.Kilo.ToString("0.##") KG</td>
 						<td>@item.Yas</td>
 						<td>@item.Cins</td>
-						<td><a href="/Kurbanlik/KurbanlikDetay/@item.Id" class="btn btn-dark" style="color:white">Hissedarlar</a></td>
-						<td><a href="/Kurbanlik/KurbanlikGuncelle/@item.Id" class="btn btn-warning">Düzenle</a></td>
-						<td><a href="#" class="btn btn-danger" onclick="confirmDelete('@item.Id')">Sil</a></td>
-
-
+							<td>
+								<div class="dropdown">
+									<button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+										<i class="bx bx-dots-vertical-rounded"></i>
+									</button>
+									<div class="dropdown-menu">
+									<a href="/Kurbanlik/KurbanlikDetay/@item.Id" class="btn btn-dark" style="color:white">Hissedarlar</a>
+									<a href="/Kurbanlik/KurbanlikGuncelle/@item.Id" class="btn btn-warning">Düzenle</a>
+									<a href="#" class="btn btn-danger" onclick="confirmDelete('@item.Id')">Sil</a>
+									</div>
+								</div>
+							</td>
 					</tr>
 				}
 			</tbody>
@@ -58,18 +65,26 @@
 </div>
 
 <script>
-    function confirmDelete(itemId) {
-        swal({
-            title: "Emin misiniz?",
-            text: "Bu işlemi geri alamazsınız!",
-            icon: "warning",
-            buttons: ["İptal", "Sil"],
-            dangerMode: true,
-        })
-        .then((confirmed) => {
-            if (confirmed) {
-                window.location.href = "/Kurbanlik/KurbanlikSil/" + itemId;
-            }
-        });
-    }
+	function confirmDelete(itemId) {
+		swal({
+			title: "Emin misiniz?",
+			text: "Bu işlemi geri alamazsınız!",
+			icon: "warning",
+			buttons: ["İptal", "Sil"],
+			dangerMode: true,
+		})
+			.then((confirmed) => {
+				if (confirmed) {
+					swal({
+						title: "Başarıyla Silindi !",
+						icon: "success",
+						button: "Tamam",
+					}).then(() => {
+						window.location.href = "/Kurbanlik/KurbanlikSil/" + itemId;
+					});
+				} else {
+					swal("İşlem iptal edildi.");
+				}
+			});
+	}
 </script>

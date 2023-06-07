@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Index";
+﻿@model ProfilViewModel
+
+@{
+    ViewData["Title"] = "Profil";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,24 +11,21 @@
             <div class="card mb-4">
                 <h5 class="card-header">Bilgi Güncelle</h5>
                 <!-- Account -->
-       
                 <hr class="my-0" />
                 <div class="card-body">
-                    <form asp-controller="Profil" asp-action="Index" method="post">
+                    <form asp-controller="Profil" asp-action="Index" method="post" id="profileForm">
                         <div class="row">
-                            <div class="mb-3 col-md-6">
-                                <label for="AdminName" class="form-label">Kullanıcı Adı</label>
-                                <input class="form-control"
-                                       type="text"
-                                       id="AdminName"
-                                       name="AdminName"
-                                       value="@Model.AdminName"
-                                       autofocus
-                                       required/>
+                            <div class="mb-3 col-md-4">
+                                <label for="UserName" class="form-label">Kullanıcı Adı</label>
+                                <input class="form-control" type="text" name="KullaniciAdi" value="@Model.KullaniciAdi" autofocus required />
                             </div>
-                            <div class="mb-3 col-md-6">
-                                <label for="AdminPassword" class="form-label">Şifre</label>
-                                <input class="form-control" type="text" name="AdminPassword" id="AdminPassword" value="@Model.AdminPassword" required />
+                            <div class="mb-3 col-md-4">
+                                <label for="Password" class="form-label">Eski Şifre</label>
+                                <input class="form-control" type="text" name="EskiSifre" required />
+                            </div>
+                            <div class="mb-3 col-md-4">
+                                <label for="Password" class="form-label">Yeni Şifre</label>
+                                <input class="form-control" type="password" name="YeniSifre" required />
                             </div>
                         </div>
                         <div class="mt-2">
@@ -39,3 +38,38 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#profileForm').submit(function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            // Perform AJAX request to update the profile information
+            $.ajax({
+                url: '@Url.Action("Index", "Profil")',
+                type: 'POST',
+                data: $(this).serialize(),
+                success: function (result) {
+                    swal({
+                        icon: 'success',
+                        title: 'Başarılı',
+                        text: 'Değişiklikler kaydedildi.',
+                        showConfirmButton: true,
+                        timer: 5000 // Display the success message for 5 seconds
+                    }).then(function () {
+                        window.location.href = '@Url.Action("Index", "Home")'; // Redirect to Home/Index after 5 seconds
+                    });
+                },
+                error: function () {
+                    swal({
+                        icon: 'error',
+                        title: 'Hata',
+                        text: 'Bir hata oluştu. Değişiklikler kaydedilemedi.',
+                        showConfirmButton: true,
+                        timer: 2000 // Display the error message for 2 seconds
+                    });
+                }
+            });
+        });
+    });
+</script>
